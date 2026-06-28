@@ -340,11 +340,17 @@ var code=document.getElementById('authInput').value;
 if(code==='nola2026'){
 document.getElementById('authWall').style.display='none';
 localStorage.setItem('nola-auth','1');
+if(window.startFirebaseAuth){window.startFirebaseAuth();}
 }else{
 document.getElementById('authError').style.display='block';
 }
 }
-if(localStorage.getItem('nola-auth')==='1'){document.getElementById('authWall').style.display='none'}
+if(localStorage.getItem('nola-auth')==='1'){
+document.getElementById('authWall').style.display='none';
+window.nolaPasswordPassed=true;
+}else{
+window.nolaPasswordPassed=false;
+}
 </script>
 
 <!-- TIME BAR -->
@@ -1719,6 +1725,7 @@ jumpTo(id);
 </script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script>
 var fbApp=firebase.initializeApp({
 apiKey:"AIzaSyCeD1l2W4NdoinN_t8puapcOc6dxyPyvCU",
@@ -1729,12 +1736,68 @@ storageBucket:"nolacalls-34afc.firebasestorage.app",
 messagingSenderId:"374498266874",
 appId:"1:374498266874:web:d0689d1e2ff2c672540343"
 });
+
+var fbAuth=firebase.auth();
+var fbAuthStarted=false;
+var fbDataLoaded=false;
+var NOLA_ALLOWED_EMAIL="daviddb122@gmail.com";
+
+function loadFirebaseDataOnce(){
+if(fbDataLoaded)return;
+fbDataLoaded=true;
 fbDb=firebase.database();
 fbReady=true;
 fbDb.ref('nolacalls/test').set('connected-'+Date.now()).then(function(){console.log('Firebase CONNECTED')}).catch(function(e){console.error('Firebase FAILED:',e)});
 fbLoad('nola-usedleads',[],function(val){usedLeads=val;renderLeads()});
 fbLoad('nola-deadleads',[],function(val){deadLeads=val;renderLeads()});
 fbLoad('nola-calllog',[],function(val){logData=val;document.getElementById('logCount').textContent=logData.length;renderLog()});
+}
+
+function showGoogleAuthError(msg){
+var authError=document.getElementById('authError');
+if(authError){
+authError.style.display='block';
+authError.textContent=msg;
+}
+alert(msg);
+}
+
+window.startFirebaseAuth=function(){
+if(fbAuthStarted)return;
+fbAuthStarted=true;
+
+fbAuth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(function(e){
+console.error('Firebase persistence error:',e);
+});
+
+fbAuth.onAuthStateChanged(function(user){
+if(user){
+console.log('Firebase signed in:', user.email, 'UID:', user.uid);
+if(user.email && user.email.toLowerCase()!==NOLA_ALLOWED_EMAIL.toLowerCase()){
+showGoogleAuthError('Wrong Google account. Sign in with '+NOLA_ALLOWED_EMAIL+'.');
+fbAuth.signOut();
+return;
+}
+loadFirebaseDataOnce();
+}else{
+var provider=new firebase.auth.GoogleAuthProvider();
+provider.setCustomParameters({prompt:'select_account'});
+fbAuth.signInWithRedirect(provider).catch(function(e){
+console.error('Google sign-in error:',e);
+showGoogleAuthError('Google sign-in failed: '+e.message);
+});
+}
+});
+};
+
+fbAuth.getRedirectResult().catch(function(e){
+console.error('Google redirect result error:',e);
+showGoogleAuthError('Google sign-in failed: '+e.message);
+});
+
+if(window.nolaPasswordPassed){
+window.startFirebaseAuth();
+}
 </script>
 
 <script>
