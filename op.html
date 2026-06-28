@@ -1740,11 +1740,13 @@ appId:"1:374498266874:web:d0689d1e2ff2c672540343"
 var fbAuth=firebase.auth();
 var fbAuthStarted=false;
 var fbDataLoaded=false;
+var googleAuthInProgress=false;
 var NOLA_ALLOWED_EMAIL="daviddb122@gmail.com";
 
 function loadFirebaseDataOnce(){
 if(fbDataLoaded)return;
 fbDataLoaded=true;
+hideGoogleAuthWall();
 fbDb=firebase.database();
 fbReady=true;
 fbDb.ref('nolacalls/test').set('connected-'+Date.now()).then(function(){console.log('Firebase CONNECTED')}).catch(function(e){console.error('Firebase FAILED:',e)});
@@ -1759,44 +1761,89 @@ if(authError){
 authError.style.display='block';
 authError.textContent=msg;
 }
+console.error(msg);
 alert(msg);
 }
 
-window.startFirebaseAuth=function(){
-if(fbAuthStarted)return;
-fbAuthStarted=true;
+function getGoogleAuthWall(){
+var wall=document.getElementById('googleAuthWall');
+if(wall)return wall;
+wall=document.createElement('div');
+wall.id='googleAuthWall';
+wall.style.cssText='position:fixed;inset:0;background:var(--bg);z-index:9998;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px;text-align:center;padding:24px';
+wall.innerHTML='<div style="font-size:24px;font-weight:700;color:var(--tx)">Google sign-in required</div><div style="font-size:14px;color:var(--txd);max-width:360px">Continue with the allowed Google account to load NolaCalls.</div><button id="googleLoginBtn" style="background:var(--v);color:#fff;border:none;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:Inter,sans-serif">Continue with Google</button><div id="googleAuthMsg" style="color:#EF4444;font-size:13px;display:none"></div>';
+document.body.appendChild(wall);
+document.getElementById('googleLoginBtn').onclick=function(){window.startFirebaseAuth(true);};
+return wall;
+}
+function showGoogleAuthWall(){
+if(document.getElementById('authWall') && document.getElementById('authWall').style.display!=='none')return;
+getGoogleAuthWall().style.display='flex';
+}
+function hideGoogleAuthWall(){
+var wall=document.getElementById('googleAuthWall');
+if(wall)wall.style.display='none';
+}
 
-fbAuth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(function(e){
-console.error('Firebase persistence error:',e);
-});
-
-fbAuth.onAuthStateChanged(function(user){
-if(user){
+function validateGoogleUser(user){
+if(!user)return false;
 console.log('Firebase signed in:', user.email, 'UID:', user.uid);
 if(user.email && user.email.toLowerCase()!==NOLA_ALLOWED_EMAIL.toLowerCase()){
 showGoogleAuthError('Wrong Google account. Sign in with '+NOLA_ALLOWED_EMAIL+'.');
 fbAuth.signOut();
-return;
+return false;
 }
 loadFirebaseDataOnce();
-}else{
+return true;
+}
+
+function signInWithGooglePopup(){
+if(googleAuthInProgress)return;
+googleAuthInProgress=true;
 var provider=new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({prompt:'select_account'});
-fbAuth.signInWithRedirect(provider).catch(function(e){
-console.error('Google sign-in error:',e);
-showGoogleAuthError('Google sign-in failed: '+e.message);
-});
+fbAuth.signInWithPopup(provider).then(function(result){
+googleAuthInProgress=false;
+validateGoogleUser(result.user);
+}).catch(function(e){
+googleAuthInProgress=false;
+console.error('Google popup sign-in error:',e);
+showGoogleAuthWall();
+var msg=document.getElementById('googleAuthMsg');
+if(msg){
+msg.style.display='block';
+msg.textContent='Google sign-in failed: '+e.message;
 }
 });
-};
+}
 
-fbAuth.getRedirectResult().catch(function(e){
-console.error('Google redirect result error:',e);
-showGoogleAuthError('Google sign-in failed: '+e.message);
+window.startFirebaseAuth=function(forcePopup){
+fbAuth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(function(e){
+console.error('Firebase persistence error:',e);
 });
 
+if(!fbAuthStarted){
+fbAuthStarted=true;
+fbAuth.onAuthStateChanged(function(user){
+if(user){
+validateGoogleUser(user);
+}else if(window.nolaPasswordPassed){
+showGoogleAuthWall();
+}
+});
+}
+
+if(fbAuth.currentUser){
+validateGoogleUser(fbAuth.currentUser);
+}else if(forcePopup){
+signInWithGooglePopup();
+}else{
+showGoogleAuthWall();
+}
+};
+
 if(window.nolaPasswordPassed){
-window.startFirebaseAuth();
+window.startFirebaseAuth(false);
 }
 </script>
 
