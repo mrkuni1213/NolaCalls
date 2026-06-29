@@ -554,7 +554,7 @@ window.nolaPasswordPassed=false;
 <div class="say" id="alt-heading-to-job"><b>Ryan:</b> "Yeah, so that's exactly why I'm calling you <span class="placeholder owner-name">[Owner Name]</span> — I know that right now plumbers take a lot of calls and it takes time away from jobs. Is this something you're dealing with too?"</div>
 <div class="say" id="alt-side-pitch"><b>Ryan:</b> "Ok so yeah, let me ask you a question — what happens to a call right now when people are trying to reach you when you're out on a job? Do you have a receptionist that handles this type of stuff?"</div>
 <div class="predict">They'll describe their situation — <a class="pos" style="cursor:pointer" onclick="jumpTo('alt-side-love')">"goes to voicemail"</a><span style="color:var(--txd);margin:0 6px">│</span><a class="pos" style="cursor:pointer" onclick="jumpTo('alt-side-love')">"I call them back"</a><span style="color:var(--txd);margin:0 6px">│</span><a style="color:#F59E0B;font-weight:600;cursor:pointer" onclick="jumpTo('wife-handler')">"my wife answers"</a></div>
-<div class="say" id="alt-side-love"><b>Ryan:</b> "I see. So you're dealing with this as well, then I think you're going to love that I'm calling. If you would give me 30 seconds, I can explain how my system works and see what you think."</div>
+<div class="say" id="alt-side-love"><b>Ryan:</b> "Pretty simple. We help plumbing companies make sure every customer call gets answered, even when everyone's out on a job."</div>
 <div class="predict">They'll say <a class="pos" style="cursor:pointer" onclick="jumpTo('the-pitch')">"sure go ahead"</a><span style="color:var(--txd);margin:0 6px">│</span><a class="pos" style="cursor:pointer" onclick="jumpTo('the-pitch')">"yeah ok"</a>. If silence → <span class="neu">"Did you hear me, boss?"</span><span style="color:var(--txd);margin:0 6px">│</span><a class="neg" style="cursor:pointer" onclick="jumpTo('obj')">→ "I don't think I'm interested"</a></div>
 </div>
 </div>
@@ -613,7 +613,7 @@ window.nolaPasswordPassed=false;
 <div class="card">
 <div class="card-label">The pitch</div>
 
-<div class="say"><b>Ryan:</b> "Well <span style="color:var(--txd);font-size:14px">/ ok so yeah</span> — it's pretty simple. We have built an AI receptionist that works 24/7. It answers every single call you miss, sounds exactly like a human, and can book up any job. But the best part <span class="placeholder owner-name">[Owner Name]</span> is that it books jobs directly into your calendar without you lifting a finger. Is that something you'd find useful?"</div>
+<div class="say"><b>Ryan:</b> "The way we do that is with an AI receptionist that answers the phone exactly like a real person, qualifies the customer, and books the job directly into your calendar."</div>
 <div class="predict">They'll say <a class="pos" style="cursor:pointer" onclick="jumpTo('s4')">"yeah that sounds great"</a><span style="color:var(--txd);margin:0 6px">│</span><a class="neu" style="cursor:pointer" onclick="jumpTo('price-immediate')">"how much?"</a><span style="color:var(--txd);margin:0 6px">│</span><a class="neg" style="cursor:pointer" onclick="jumpTo('obj')">→ "I don't know..."</a></div>
 
 <h3 class="h-green">If they say "yeah"<span style="color:var(--txd);margin:0 6px">│</span>interested:</h3>
