@@ -530,7 +530,7 @@ window.nolaPasswordPassed=false;
 <hr class="div">
 
 <!-- STEP 2 -->
-<h2 id="s2" style="color:#A6E3A1;border-left-color:#A6E3A1;background:rgba(166,227,161,.08)">Step 2 — Pitch <span class="stat-lime">MAIN SCRIPT</span><button class="jm-toggle" id="jmToggle" onclick="toggleJMVersion()" type="button">JM version</button></h2>
+<h2 id="s2" style="color:#A6E3A1;border-left-color:#A6E3A1;background:rgba(166,227,161,.08)">Step 2 — Pitch <span class="stat-lime">MAIN SCRIPT</span><button class="jm-toggle" id="ksToggle" onclick="toggleKSVersion()" type="button">KS version</button><button class="jm-toggle" id="jmToggle" onclick="toggleJMVersion()" type="button">JM version</button></h2>
 
 <div class="card">
 <div id="pastCallCard" class="collapsible-card">
@@ -1848,21 +1848,40 @@ window.startFirebaseAuth(false);
 </script>
 
 <script>
-var jmVersionActive=false;
-function toggleJMVersion(){
-  jmVersionActive=!jmVersionActive;
-  var btn=document.getElementById('jmToggle');
+var activeScriptVersion='default';
+
+function setScriptVersion(version){
+  activeScriptVersion=version;
+
+  var jmBtn=document.getElementById('jmToggle');
+  var ksBtn=document.getElementById('ksToggle');
   var intro=document.getElementById('jm-intro-line');
   var permission=document.getElementById('jm-permission-line');
-  if(btn){btn.classList.toggle('active',jmVersionActive);}
+
+  if(jmBtn){jmBtn.classList.toggle('active',activeScriptVersion==='jm');}
+  if(ksBtn){ksBtn.classList.toggle('active',activeScriptVersion==='ks');}
+
   if(intro){
     intro.innerHTML = `<b>Ryan:</b> "Hey, this is Ryan calling. I've tried reaching you guys a couple of days ago, but nobody answered."<br><br><b>PAUSE</b><br><br><b>Ryan:</b> "Yeah, so this was the reason I was calling in the first place. I was wondering if I could grab one minute of your time?"`;
   }
+
   if(permission){
-    permission.innerHTML = jmVersionActive
-      ? `<b>Ryan:</b> "Well... I'm not sure if you're the right person I should be talking to, but I called to see who would be responsible for making sure the company isn't losing plumbing jobs because of missed calls. Who should I be talking to about that?"`
-      : `<b>Ryan:</b> "I was wondering if I could grab one minute of your time?"`;
+    if(activeScriptVersion==='jm'){
+      permission.innerHTML = `<b>Ryan:</b> "Well... I'm not sure if you're the right person I should be talking to, but I called to see who would be responsible for making sure the company isn't losing plumbing jobs because of missed calls. Who should I be talking to about that?"`;
+    }else if(activeScriptVersion==='ks'){
+      permission.innerHTML = `<b>Ryan:</b> "Hi, is this <span class="placeholder biz-name">[Business Name]</span> in Georgia?"<br><br><b>Ryan:</b> "Hey, well, yeah, what's up man, uhm, yeah, so my friend Julie Becker, actually, my mom's friend kinda gave me your number, she said you guys still rely mostly on the phone for new customers."`;
+    }else{
+      permission.innerHTML = `<b>Ryan:</b> "I was wondering if I could grab one minute of your time?"`;
+    }
   }
+}
+
+function toggleJMVersion(){
+  setScriptVersion(activeScriptVersion==='jm' ? 'default' : 'jm');
+}
+
+function toggleKSVersion(){
+  setScriptVersion(activeScriptVersion==='ks' ? 'default' : 'ks');
 }
 </script>
 <script>
