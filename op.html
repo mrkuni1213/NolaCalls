@@ -1162,12 +1162,42 @@ cb(val);
 var usedLeads=JSON.parse(localStorage.getItem('nola-usedleads')||'[]');
 var deadLeads=JSON.parse(localStorage.getItem('nola-deadleads')||'[]');
 
+var leadsSavedScrollTop=0;
+
+function saveLeadsScroll(){
+var el=document.querySelector('.leads-body');
+if(el){leadsSavedScrollTop=el.scrollTop||0;}
+}
+
+function restoreLeadsScroll(){
+var el=document.querySelector('.leads-body');
+if(!el)return;
+var target=leadsSavedScrollTop||0;
+
+function buildEnoughRows(){
+while(leadsRendered<leadsFiltered.length && el.scrollHeight < target + el.clientHeight + 300){
+renderLeadsBatch();
+}
+el.scrollTop=target;
+}
+
+requestAnimationFrame(function(){
+buildEnoughRows();
+requestAnimationFrame(function(){el.scrollTop=target;});
+});
+}
+
 function openLeads(){
 document.getElementById('leadsOverlay').classList.add('open');
 populateCityFilter();
 renderLeads();
+restoreLeadsScroll();
 }
-function closeLeads(){document.getElementById('leadsOverlay').classList.remove('open')}
+
+function closeLeads(){
+saveLeadsScroll();
+document.getElementById('leadsOverlay').classList.remove('open');
+}
 
 function populateCityFilter(){
 var cities={};
@@ -1241,6 +1271,7 @@ leadsRendered=end;
 }
 document.querySelector('.leads-body').addEventListener('scroll',function(){
 var el=this;
+leadsSavedScrollTop=el.scrollTop||0;
 if(el.scrollTop+el.clientHeight>=el.scrollHeight-100&&leadsRendered<leadsFiltered.length){
 renderLeadsBatch();
 }
