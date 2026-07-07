@@ -548,11 +548,12 @@ window.nolaPasswordPassed=false;
 <div class="say-wrap">
 <div class="say" id="jm-permission-line"><b>Ryan:</b> "I was wondering if I could grab one minute of your time?"</div>
 <div class="alt-side" style="top:-160px">
+<div class="say" id="julie-becker-objection"><b>Who the fuck is Julie Becker?</b><br><br><b>Ryan:</b> "She's just a family friend. She mentioned you guys still do most of your business over the phone, and I figured I'd reach out."</div>
 <div class="say" id="alt-whatdoyoumean"><b>Ryan:</b> "It's about helping plumbing companies answer more customer calls without hiring another full-time receptionist."</div>
 <div class="predict">They'll say <a class="pos" style="cursor:pointer" onclick="jumpTo('alt-side-pitch')">"ok"</a><span style="color:var(--txd);margin:0 6px">│</span><a class="pos" style="cursor:pointer" onclick="jumpTo('alt-side-pitch')">"yeah sure"</a><span style="color:var(--txd);margin:0 6px">│</span><a class="pos" style="cursor:pointer" onclick="jumpTo('alt-side-pitch')">"go ahead"</a></div>
 <div style="height:24px"></div>
 <div class="say" id="alt-heading-to-job"><b>Ryan:</b> "Yeah, so that's exactly why I'm calling you <span class="placeholder owner-name">[Owner Name]</span> — I know that right now plumbers take a lot of calls and it takes time away from jobs. Is this something you're dealing with too?"</div>
-<div class="say" id="alt-side-pitch"><b>Ryan:</b> "Ok so yeah, let me ask you a question — what happens to a call right now when people are trying to reach you when you're out on a job? Do you have a receptionist that handles this type of stuff?"</div>
+<div class="say" id="alt-side-pitch"><b>Ryan:</b> "What happens when somebody calls you guys while you're out working or driving between jobs?"</div>
 <div class="predict">They'll describe their situation — <a class="pos" style="cursor:pointer" onclick="jumpTo('alt-side-love')">"goes to voicemail"</a><span style="color:var(--txd);margin:0 6px">│</span><a class="pos" style="cursor:pointer" onclick="jumpTo('alt-side-love')">"I call them back"</a><span style="color:var(--txd);margin:0 6px">│</span><a style="color:#F59E0B;font-weight:600;cursor:pointer" onclick="jumpTo('wife-handler')">"my wife answers"</a></div>
 <div class="say" id="alt-side-love"><b>Ryan:</b> "Pretty simple. We help plumbing companies make sure every customer call gets answered, even when everyone's out on a job."</div>
 <div class="predict">They'll say <a class="pos" style="cursor:pointer" onclick="jumpTo('the-pitch')">"sure go ahead"</a><span style="color:var(--txd);margin:0 6px">│</span><a class="pos" style="cursor:pointer" onclick="jumpTo('the-pitch')">"yeah ok"</a>. If silence → <span class="neu">"Did you hear me, boss?"</span><span style="color:var(--txd);margin:0 6px">│</span><a class="neg" style="cursor:pointer" onclick="jumpTo('obj')">→ "I don't think I'm interested"</a></div>
@@ -577,7 +578,7 @@ window.nolaPasswordPassed=false;
 
 <h3 class="h-green">THE PITCH (after they give you the 30 seconds):</h3>
 
-<div class="say" id="the-pitch"><b>Ryan:</b> "Ok so yeah, let me ask you a question — what happens to a call right now when people are trying to reach you when you're out on a job? Do you have a receptionist that handles this type of stuff?"</div>
+<div class="say" id="the-pitch"><b>Ryan:</b> "What happens when somebody calls you guys while you're out working or driving between jobs?"</div>
 <div class="predict">They'll describe their situation — <a class="pos" style="cursor:pointer" onclick="jumpTo('s3')">"goes to voicemail"</a><span style="color:var(--txd);margin:0 6px">│</span><a class="pos" style="cursor:pointer" onclick="jumpTo('s3')">"I call them back"</a><span style="color:var(--txd);margin:0 6px">│</span><a style="color:#F59E0B;font-weight:600;cursor:pointer" onclick="jumpTo('wife-handler')">"my wife answers"</a></div>
 <p class="inst">→ <a href="#s3" class="go">Step 3 — How It Works</a></p>
 </div>
