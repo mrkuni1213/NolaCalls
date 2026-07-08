@@ -117,6 +117,7 @@ body.light .card{box-shadow:0 2px 12px rgba(0,0,0,.05)}
 .expand-btn.btn-orange{color:#F59E0B;border-color:rgba(245,158,11,.25)}
 .expand-btn.btn-orange:hover{background:rgba(245,158,11,.08)}
 
+.jm-only.ks-hide{display:none!important}
 /* ===== TABLE ===== */
 table{border-collapse:collapse;width:100%;margin:14px 0;border-radius:10px;overflow:hidden}
 th{background:var(--v);color:#fff;padding:10px 14px;text-align:left;font-size:13px;font-weight:600}
@@ -550,6 +551,16 @@ window.nolaPasswordPassed=false;
 <div class="alt-side" style="top:-160px">
 <div class="say" id="julie-becker-objection"><b>Who the fuck is Julie Becker?</b><br><br><b>Ryan:</b> "She's just a family friend. She mentioned you guys still do most of your business over the phone, and I figured I'd reach out."</div>
 <div class="say" id="alt-whatdoyoumean"><b>Ryan:</b> "It's about helping plumbing companies answer more customer calls without hiring another full-time receptionist."</div>
+<div class="say"><b>Ryan:</b> "How many calls would you say you answer in a normal day?"</div>
+<button class="expand-btn btn-green" onclick="toggleExpand(this)">YES (40+ calls)</button>
+<div class="expand-body">
+<div class="say"><b>Ryan:</b> "Forty? That's a lot of calls. Do you actually enjoy answering every single one yourself?"</div>
+<button class="expand-btn btn-green" onclick="toggleExpand(this)">YES</button>
+<div class="expand-body"><div class="say"><b>Ryan:</b> "Out of those forty, how many are just people asking questions or shopping around rather than actually booking?"</div></div>
+<button class="expand-btn btn-red" onclick="toggleExpand(this)">NO</button>
+<div class="expand-body"><div class="say"><b>Ryan:</b> "So if somebody else handled those routine calls, qualified them, and only sent you the serious customers, would that make your day a bit easier?"</div></div>
+</div>
+
 <div class="predict">They'll say <a class="pos" style="cursor:pointer" onclick="jumpTo('alt-side-pitch')">"ok"</a><span style="color:var(--txd);margin:0 6px">│</span><a class="pos" style="cursor:pointer" onclick="jumpTo('alt-side-pitch')">"yeah sure"</a><span style="color:var(--txd);margin:0 6px">│</span><a class="pos" style="cursor:pointer" onclick="jumpTo('alt-side-pitch')">"go ahead"</a></div>
 <div style="height:24px"></div>
 <div class="say" id="alt-heading-to-job"><b>Ryan:</b> "Yeah, so that's exactly why I'm calling you <span class="placeholder owner-name">[Owner Name]</span> — I know that right now plumbers take a lot of calls and it takes time away from jobs. Is this something you're dealing with too?"</div>
@@ -559,7 +570,7 @@ window.nolaPasswordPassed=false;
 <div class="predict">They'll say <a class="pos" style="cursor:pointer" onclick="jumpTo('the-pitch')">"sure go ahead"</a><span style="color:var(--txd);margin:0 6px">│</span><a class="pos" style="cursor:pointer" onclick="jumpTo('the-pitch')">"yeah ok"</a>. If silence → <span class="neu">"Did you hear me, boss?"</span><span style="color:var(--txd);margin:0 6px">│</span><a class="neg" style="cursor:pointer" onclick="jumpTo('obj')">→ "I don't think I'm interested"</a></div>
 </div>
 </div>
-<div class="say" id="good-news-first"><b>Ryan:</b> "Hi, this is Ryan Carter from NolaCalls. I was hoping you could point me in the right direction. Who would you say is the best person to speak with when it comes to making sure customer calls don't get missed when everyone's busy on jobs?"</div>
+<div class="say jm-only" id="good-news-first"><b>Ryan:</b> "Hi, this is Ryan Carter from NolaCalls. I was hoping you could point me in the right direction. Who would you say is the best person to speak with when it comes to making sure customer calls don't get missed when everyone's busy on jobs?"</div>
 <div class="predict">They'll say <a class="pos" style="cursor:pointer" onclick="jumpTo('good-news-first')">"sure"</a><span style="color:var(--txd);margin:0 6px">│</span><a class="pos" style="cursor:pointer" onclick="jumpTo('good-news-first')">"go ahead"</a><span style="color:var(--txd);margin:0 6px">│</span><a style="color:#F59E0B;font-weight:600;cursor:pointer" onclick="jumpTo('dodge-handler')">→ "what's this about?"</a></div>
 
 <h3 class="h-green">If they say "yeah"<span style="color:var(--txd);margin:0 6px">│</span>confirm:</h3>
@@ -1920,3 +1931,14 @@ function toggleKSVersion(){
 function toggleCollapse(id){document.getElementById(id).classList.toggle('open');}
 </script></body>
 </html>
+
+<script>
+(function(){
+const prev=window.toggleKSVersion;
+window.toggleKSVersion=function(){
+ if(prev) prev();
+ const on=document.getElementById('ksToggle')?.classList.contains('active');
+ document.querySelectorAll('.jm-only').forEach(el=>el.classList.toggle('ks-hide',!!on));
+}
+})();
+</script>
