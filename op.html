@@ -1206,10 +1206,13 @@ function populateCityFilter(){
 var cities={};
 LEADS.forEach(function(l){if(l.c)cities[l.c]=1});
 var sel=document.getElementById('leadsCity');
-sel.innerHTML='<option value="">All cities</option>';
+var prev=sel.value;
+var parts=['<option value="">All cities</option>'];
 Object.keys(cities).sort().forEach(function(c){
-sel.innerHTML+='<option value="'+c+'">'+c+'</option>';
+parts.push('<option value="'+c+'">'+c+'</option>');
 });
+sel.innerHTML=parts.join('');
+if(prev)sel.value=prev;
 }
 
 var leadsRendered=0;
@@ -1246,7 +1249,8 @@ document.getElementById('leadsCount').textContent=countAvailableLeads();
 }
 function renderLeadsBatch(){
 var b=document.getElementById('leadsBody');
-var end=Math.min(leadsRendered+200,leadsFiltered.length);
+var frag=document.createDocumentFragment();
+var end=Math.min(leadsRendered+100,leadsFiltered.length);
 for(var j=leadsRendered;j<end;j++){
 var i=leadsFiltered[j];
 var l=LEADS[i];
@@ -1272,8 +1276,9 @@ tr.innerHTML='<td>'+(j+1)+'</td>'+
 '<td>'+yrTxt+'</td>'+
 '<td>'+(l.o?'<span style="color:var(--v);font-weight:600">'+l.o+'</span>':'—')+'</td>'+
 '<td>'+(dead?'<span style="color:#EF4444;font-size:11px">Closed</span>':(used&&!isNoAnswer&&!isOwnerCallBack)?(outcomeText||'<span style="color:var(--txd)">Done</span>'):isNoAnswer?('<span style="color:var(--txd);font-size:11px">No Answer</span> <button class="leads-use" onclick="useLead('+i+',event)">Call</button>'):isOwnerCallBack?('<span style="color:#F59E0B;font-size:11px;font-weight:600">Owner Will Call Back</span>'):'<button class="leads-use" onclick="useLead('+i+',event)">Call</button><button class="leads-dead" onclick="markDead('+i+',event)">Dead</button>')+'</td>';
-b.appendChild(tr);
+frag.appendChild(tr);
 }
+b.appendChild(frag);
 leadsRendered=end;
 }
 document.querySelector('.leads-body').addEventListener('scroll',function(){
