@@ -325,7 +325,7 @@ a:hover{text-decoration:underline}
 .collapsible-card.open .collapsible-content{display:block}
 </style>
 <script src="https://unpkg.com/compromise"></script>
-<script src="leads.js"></script>
+<script>var LEADS=[];</script>
 </head>
 <body>
 <div id="authWall" style="position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px">
@@ -1789,6 +1789,16 @@ hideGoogleAuthWall();
 fbDb=firebase.database();
 fbReady=true;
 fbDb.ref('nolacalls/test').set('connected-'+Date.now()).then(function(){console.log('Firebase CONNECTED')}).catch(function(e){console.error('Firebase FAILED:',e)});
+fbDb.ref('nolacalls/leads').once('value').then(function(snap){
+var v=snap.val();
+if(!v){console.warn('No leads in database');return}
+LEADS=Array.isArray(v)?v.filter(Boolean):Object.keys(v).map(function(k){return v[k]}).filter(Boolean);
+console.log('Leads loaded from Firebase:',LEADS.length);
+if(typeof populateCityFilter==='function')populateCityFilter();
+renderLeads();
+var lc=document.getElementById('leadsCount');
+if(lc)lc.textContent=countAvailableLeads();
+}).catch(function(e){console.error('Leads load failed:',e);alert('Could not load leads: '+e.message)});
 fbLoad('nola-usedleads',[],function(val){usedLeads=val;renderLeads()});
 fbLoad('nola-deadleads',[],function(val){deadLeads=val;renderLeads()});
 fbLoad('nola-calllog',[],function(val){logData=val;document.getElementById('logCount').textContent=logData.length;renderLog()});
