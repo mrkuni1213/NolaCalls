@@ -261,6 +261,18 @@ body.light .side{background:#fff;box-shadow:0 4px 16px rgba(0,0,0,.06)}
 .tt{position:fixed;bottom:24px;right:24px;width:48px;height:48px;border-radius:50%;background:var(--v);color:#fff;border:none;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(124,92,255,.4);transition:transform .2s;z-index:100}
 .tt:hover{transform:scale(1.1)}
 
+/* ===== CHEAT CARD (4 lines) ===== */
+.cc-btn{position:fixed;bottom:24px;right:84px;width:48px;height:48px;border-radius:50%;background:#EF4444;color:#fff;border:none;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(239,68,68,.4);transition:transform .2s;z-index:100}
+.cc-btn:hover{transform:scale(1.1)}
+.cc-panel{display:none;position:fixed;bottom:84px;right:24px;width:440px;max-width:calc(100vw - 48px);background:var(--sf);border:1px solid var(--ln);border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.35);padding:14px 16px;z-index:100;font-size:14px;line-height:1.45}
+.cc-panel.open{display:block}
+.cc-panel h4{margin:0 0 10px;font-size:12px;letter-spacing:.5px;text-transform:uppercase;color:var(--txd)}
+.cc-row{display:grid;grid-template-columns:118px 1fr;gap:10px;padding:8px 0;border-top:1px solid var(--ln)}
+.cc-row:first-of-type{border-top:none}
+.cc-k{color:#EF4444;font-weight:700;font-size:13px}
+.cc-v{color:var(--tx)}
+.cc-num{font-weight:800;color:#39FF14;font-size:16px;letter-spacing:.5px}
+
 /* ===== LISTS ===== */
 ul,ol{margin:8px 0 8px 22px;font-size:16px}
 li{margin-bottom:6px}
@@ -460,6 +472,16 @@ window.nolaPasswordPassed=false;
 
 <!-- THEME -->
 <button class="tt" onclick="document.body.classList.toggle('light');this.textContent=document.body.classList.contains('light')?'🌙':'💡'" title="Toggle theme">💡</button>
+
+<!-- CHEAT CARD -->
+<button class="cc-btn" onclick="document.getElementById('ccPanel').classList.toggle('open')" title="4 lines">🃏</button>
+<div class="cc-panel" id="ccPanel">
+<h4>He says → you say</h4>
+<div class="cc-row"><div class="cc-k">"I answer myself" / "more personal"</div><div class="cc-v">"You still do. It only picks up when you can't — under a sink, it rings out. Right now those people get voicemail, and most hang up and call the next guy."</div></div>
+<div class="cc-row"><div class="cc-k">"Busy" / "busy is good"</div><div class="cc-v">"Exactly. And the busier you are, the more calls hit voicemail."</div></div>
+<div class="cc-row"><div class="cc-k">"Not big enough" / "no office"</div><div class="cc-v">"It's ninety-nine bucks, not a salary. It's built for one-truck guys."</div></div>
+<div class="cc-row"><div class="cc-k">Any goodbye, yes or no</div><div class="cc-v">"Save this number: <span class="cc-num">209-414-5201</span>. Call it when you're driving. Thirty seconds, you'll hear it."</div></div>
+</div>
 
 <!-- TITLE -->
 <div class="subtitle">Cold Call Script &<br>Operations Manual</div>
