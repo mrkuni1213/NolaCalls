@@ -1322,6 +1322,11 @@ if(usedLeads.indexOf(i)===-1){usedLeads.push(i);fbSave('nola-usedleads',usedLead
 closeLeads();
 // Auto-start Work mode if not already active
 if(!workActive){toggleWork()}
+// Show owner name (or business name) in the caller widget right away
+var shown=(l.o&&l.o.trim())?l.o.trim():l.n;
+detectedName=l.o?l.o.trim():null;
+document.getElementById('callerName').textContent=shown+' — '+l.n;
+document.getElementById('callerStatus').textContent=l.o?'👤 Owner from leads':'🎙️ Waiting for name...';
 // Auto-add a log entry
 var now=new Date();
 var d=now.toISOString().slice(0,10);
