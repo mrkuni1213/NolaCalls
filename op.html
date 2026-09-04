@@ -545,7 +545,7 @@ window.nolaPasswordPassed=false;
 <hr class="div">
 
 <!-- STEP 2 -->
-<h2 id="s2" style="color:#A6E3A1;border-left-color:#A6E3A1;background:rgba(166,227,161,.08)">Step 2 — Pitch <span class="stat-lime">MAIN SCRIPT</span><button class="jm-toggle" id="ksToggle" onclick="toggleKSVersion()" type="button">KS version</button><button class="jm-toggle" id="jmToggle" onclick="toggleJMVersion()" type="button">JM version</button></h2>
+<h2 id="s2" style="color:#A6E3A1;border-left-color:#A6E3A1;background:rgba(166,227,161,.08)">Step 2 — Pitch <span class="stat-lime">MAIN SCRIPT</span><button class="jm-toggle" id="ksToggle" onclick="toggleKSVersion()" type="button">KS version</button><button class="jm-toggle" id="nwToggle" onclick="toggleNWVersion()" type="button">NW version</button><button class="jm-toggle" id="jmToggle" onclick="toggleJMVersion()" type="button">JM version</button></h2>
 
 <div class="card">
 <div id="pastCallCard" class="collapsible-card">
@@ -1936,11 +1936,13 @@ function setScriptVersion(version){
 
   var jmBtn=document.getElementById('jmToggle');
   var ksBtn=document.getElementById('ksToggle');
+  var nwBtn=document.getElementById('nwToggle');
   var intro=document.getElementById('jm-intro-line');
   var permission=document.getElementById('jm-permission-line');
 
   if(jmBtn){jmBtn.classList.toggle('active',activeScriptVersion==='jm');}
   if(ksBtn){ksBtn.classList.toggle('active',activeScriptVersion==='ks');}
+  if(nwBtn){nwBtn.classList.toggle('active',activeScriptVersion==='nw');}
 
   if(intro){
     intro.innerHTML = `<b>Ryan:</b> "Hey, this is Ryan calling. I've tried reaching you guys a couple of days ago, but nobody answered."<br><br><b>PAUSE</b><br><br><b>Ryan:</b> "Yeah, so this was the reason I was calling in the first place. I was wondering if I could grab one minute of your time?"`;
@@ -1951,6 +1953,8 @@ function setScriptVersion(version){
       permission.innerHTML = `<b>Ryan:</b> "Well... I'm not sure if you're the right person I should be talking to, but I called to see who would be responsible for making sure the company isn't losing plumbing jobs because of missed calls. Who should I be talking to about that?"`;
     }else if(activeScriptVersion==='ks'){
       permission.innerHTML = `<b>Ryan:</b> "Hi, is this <span class="placeholder biz-name">[Business Name]</span> in Georgia?"<br><br><b>Ryan:</b> "Hey, well, yeah, what's up man, uhm, yeah, so my friend Julie Becker, actually, my mom's friend kinda gave me your number, she said you guys still rely mostly on the phone for new customers."`;
+    }else if(activeScriptVersion==='nw'){
+      permission.innerHTML = `<b>Daniel:</b> "Hi, is this <span class="placeholder biz-name">[Business Name]</span>?"<br><br><b>Daniel:</b> "Yeah, what's up man, this is Daniel."<br><br><b>Daniel:</b> "Uh, you're gonna hate me, but I'm actually here to offer you something."<br><br><b>Daniel:</b> "Do you wanna hang up, or give me 30 seconds?"`;
     }else{
       permission.innerHTML = `<b>Ryan:</b> "I was wondering if I could grab one minute of your time?"`;
     }
@@ -1963,6 +1967,12 @@ function toggleJMVersion(){
 
 function toggleKSVersion(){
   setScriptVersion(activeScriptVersion==='ks' ? 'default' : 'ks');
+}
+
+function toggleNWVersion(){
+  setScriptVersion(activeScriptVersion==='nw' ? 'default' : 'nw');
+  var on=activeScriptVersion==='nw';
+  document.querySelectorAll('.jm-only').forEach(function(el){el.classList.toggle('ks-hide',on);});
 }
 </script>
 <script>
