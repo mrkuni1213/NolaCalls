@@ -587,7 +587,7 @@ window.nolaPasswordPassed=false;
 <div class="say jm-only" id="good-news-first"><b>Ryan:</b> "Hi, this is Ryan Carter from NolaCalls. I was hoping you could point me in the right direction. Who would you say is the best person to speak with when it comes to making sure customer calls don't get missed when everyone's busy on jobs?"</div>
 <div class="predict">They'll say <a class="pos" style="cursor:pointer" onclick="jumpTo('good-news-first')">"sure"</a><span style="color:var(--txd);margin:0 6px">│</span><a class="pos" style="cursor:pointer" onclick="jumpTo('good-news-first')">"go ahead"</a><span style="color:var(--txd);margin:0 6px">│</span><a style="color:#F59E0B;font-weight:600;cursor:pointer" onclick="jumpTo('dodge-handler')">→ "what's this about?"</a></div>
 
-<h3 class="h-green">If they say "yeah"<span style="color:var(--txd);margin:0 6px">│</span>confirm:</h3>
+<h3 class="h-green" id="oh-ok-heading">If they say "yeah"<span style="color:var(--txd);margin:0 6px">│</span>confirm:</h3>
 <div class="say" id="oh-ok-perfect"><b>Ryan:</b> "Oh ok, perfect, well then — I think you're going to love that I'm calling. If you would give me 30 seconds, I can explain how my system works and see what you think."</div>
 <div class="predict">They'll say <a class="pos" style="cursor:pointer" onclick="jumpTo('s3')">"sure go ahead"</a><span style="color:var(--txd);margin:0 6px">│</span><a class="pos" style="cursor:pointer" onclick="jumpTo('s3')">"yeah ok"</a>. If silence → <span class="neu">"Did you hear me, boss?"</span></div>
 
@@ -1957,6 +1957,20 @@ function setScriptVersion(version){
       permission.innerHTML = `<b>Daniel:</b> "Hi, is this <span class="placeholder biz-name">[Business Name]</span>?"<br><br><b>Daniel:</b> "Yeah, what's up man, this is Daniel."<br><br><b>Daniel:</b> "Uh, you're gonna hate me, but I'm actually here to offer you something."<br><br><b>Daniel:</b> "Do you wanna hang up, or give me 30 seconds?"`;
     }else{
       permission.innerHTML = `<b>Ryan:</b> "I was wondering if I could grab one minute of your time?"`;
+    }
+  }
+
+  // NW version swaps the "confirm" block for the full pitch; every other version restores the original.
+  var okHead=document.getElementById('oh-ok-heading');
+  var okBody=document.getElementById('oh-ok-perfect');
+  if(okHead&&okBody){
+    if(!okHead.dataset.orig){okHead.dataset.orig=okHead.innerHTML;okBody.dataset.orig=okBody.innerHTML;}
+    if(activeScriptVersion==='nw'){
+      okHead.innerHTML = `If they say "give me 30 seconds"<span style="color:var(--txd);margin:0 6px">│</span>the pitch:`;
+      okBody.innerHTML = `<b>Daniel:</b> "Alright, so yeah, it's pretty simple. Right now, when somebody's trying to get a hold of you and you're on a job and can't get to the phone, or you're sleeping, or it's the weekend and you'd like some spare time — the people calling you hear your voicemail, hang up, and call the next plumber. And that's where we come in."<br><br><b>Daniel:</b> "We've got a receptionist that picks up those calls for you. She sounds like a real person, and she texts you the name, the address, and what they need. You still answer whenever you can — she only steps in when you don't."<br><br><b>Daniel:</b> "And don't take my word for it. I'll give you a number, you call it, thirty seconds, and you'll hear her yourself."`;
+    }else{
+      okHead.innerHTML=okHead.dataset.orig;
+      okBody.innerHTML=okBody.dataset.orig;
     }
   }
 }
