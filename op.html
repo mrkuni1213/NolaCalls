@@ -555,7 +555,7 @@ window.nolaPasswordPassed=false;
 <hr class="div">
 
 <!-- STEP 2 -->
-<h2 id="s2" style="color:#A6E3A1;border-left-color:#A6E3A1;background:rgba(166,227,161,.08)">Step 2 — Pitch <span class="stat-lime">MAIN SCRIPT</span><button class="jm-toggle" id="ksToggle" onclick="toggleKSVersion()" type="button">KS version</button><button class="jm-toggle" id="nwToggle" onclick="toggleNWVersion()" type="button">NW version</button><button class="jm-toggle" id="jmToggle" onclick="toggleJMVersion()" type="button">JM version</button></h2>
+<h2 id="s2" style="color:#A6E3A1;border-left-color:#A6E3A1;background:rgba(166,227,161,.08)">Step 2 — Pitch <span class="stat-lime">MAIN SCRIPT</span><button class="jm-toggle" id="nmToggle" onclick="toggleNMVersion()" type="button">NM</button><button class="jm-toggle" id="ksToggle" onclick="toggleKSVersion()" type="button">KS</button><button class="jm-toggle" id="nwToggle" onclick="toggleNWVersion()" type="button">NW</button><button class="jm-toggle" id="jmToggle" onclick="toggleJMVersion()" type="button">JM</button></h2>
 
 <div class="card">
 <div id="pastCallCard" class="collapsible-card">
@@ -1949,12 +1949,14 @@ function setScriptVersion(version){
   var jmBtn=document.getElementById('jmToggle');
   var ksBtn=document.getElementById('ksToggle');
   var nwBtn=document.getElementById('nwToggle');
+  var nmBtn=document.getElementById('nmToggle');
   var intro=document.getElementById('jm-intro-line');
   var permission=document.getElementById('jm-permission-line');
 
   if(jmBtn){jmBtn.classList.toggle('active',activeScriptVersion==='jm');}
   if(ksBtn){ksBtn.classList.toggle('active',activeScriptVersion==='ks');}
   if(nwBtn){nwBtn.classList.toggle('active',activeScriptVersion==='nw');}
+  if(nmBtn){nmBtn.classList.toggle('active',activeScriptVersion==='nm');}
 
   if(intro){
     intro.innerHTML = `<b>Ryan:</b> "Hey, this is Ryan calling. I've tried reaching you guys a couple of days ago, but nobody answered."<br><br><b>PAUSE</b><br><br><b>Ryan:</b> "Yeah, so this was the reason I was calling in the first place. I was wondering if I could grab one minute of your time?"`;
@@ -1967,6 +1969,8 @@ function setScriptVersion(version){
       permission.innerHTML = `<b>Ryan:</b> "Hi, is this <span class="placeholder biz-name">[Business Name]</span> in Georgia?"<br><br><b>Ryan:</b> "Hey, well, yeah, what's up man, uhm, yeah, so my friend Julie Becker, actually, my mom's friend kinda gave me your number, she said you guys still rely mostly on the phone for new customers."`;
     }else if(activeScriptVersion==='nw'){
       permission.innerHTML = `<b>Daniel:</b> "Hi, is this <span class="placeholder biz-name">[Business Name]</span>?"<br><br><b>Daniel:</b> "Yeah, what's up man, this is Daniel."<br><br><b>Daniel:</b> "Uh, you're gonna hate me, but I'm actually here to offer you something."<br><br><b>Daniel:</b> "Do you wanna hang up, or give me 30 seconds?"`;
+    }else if(activeScriptVersion==='nm'){
+      permission.innerHTML = `<b>Ryan:</b> "Hellooo, is this <span class="placeholder biz-name">[Business Name]</span>?"<br><br><b>Ryan:</b> "Hi <span class="placeholder owner-name">[Owner Name]</span>, so the reason for the call today is that I was browsing online for your prices and services and I noticed you guys didn't have a website. Is there any reason in particular?"`;
     }else{
       permission.innerHTML = `<b>Ryan:</b> "I was wondering if I could grab one minute of your time?"`;
     }
@@ -1991,6 +1995,9 @@ function setScriptVersion(version){
     if(activeScriptVersion==='nw'){
       okHead.innerHTML = `If they say "give me 30 seconds"<span style="color:var(--txd);margin:0 6px">│</span>the pitch:`;
       okBody.innerHTML = `<b>Daniel:</b> "Alright, thanks man, so it's pretty straightforward. Right now, when somebody is calling you and you're under a sink and you cannot get to the phone, or maybe when you're sleeping, or when you're in the weekend and you'd like to have some free time — the people calling you just hit the voicemail, right?"<br><br><span class="predict">wait for <span class="pos">"yeah"</span></span><br><br><b>Daniel:</b> "Yeah, so most of the time they basically hang up and call the next plumber, so most of those jobs are lost, so I've built an AI receptionist that catches all of those leads, books them, and texts you all the info."`;
+    }else if(activeScriptVersion==='nm'){
+      okHead.innerHTML = `Whatever their answer is:`;
+      okBody.innerHTML = `<b>Ryan:</b> "Yeah, so I've actually gone ahead and built you guys a website already. It's totally free to look at, if you're up for it, maybe sometime this week when you're free?"`;
     }else{
       okHead.innerHTML=okHead.dataset.orig;
       okBody.innerHTML=okBody.dataset.orig;
@@ -2004,6 +2011,10 @@ function toggleJMVersion(){
 
 function toggleKSVersion(){
   setScriptVersion(activeScriptVersion==='ks' ? 'default' : 'ks');
+}
+
+function toggleNMVersion(){
+  setScriptVersion(activeScriptVersion==='nm' ? 'default' : 'nm');
 }
 
 function toggleNWVersion(){
