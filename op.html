@@ -592,7 +592,7 @@ window.nolaPasswordPassed=false;
 <div class="predict">They'll say <a class="pos" style="cursor:pointer" onclick="jumpTo('s3')">"sure go ahead"</a><span style="color:var(--txd);margin:0 6px">│</span><a class="pos" style="cursor:pointer" onclick="jumpTo('s3')">"yeah ok"</a>. If silence → <span class="neu">"Did you hear me, boss?"</span></div>
 
 <h3 class="h-orange" id="dodge-handler">If they dodge ("What is this about?"<span style="color:var(--txd);margin:0 6px">│</span>"Who are you?")</h3>
-<div class="say"><b>Ryan:</b> "So my name is Ryan, <span style="color:var(--a);font-size:14px;font-weight:600">— 1 sec —</span> and I started working with plumbing companies. I've identified that <span class="placeholder biz-name">[Business Name]</span> has a big problem with missed calls — and I built something that fixes it, and it's completely free. I know it sounds too good to be true, just give me 30 seconds — how does that sound?"</div>
+<div class="say" id="dodge-body"><b>Ryan:</b> "So my name is Ryan, <span style="color:var(--a);font-size:14px;font-weight:600">— 1 sec —</span> and I started working with plumbing companies. I've identified that <span class="placeholder biz-name">[Business Name]</span> has a big problem with missed calls — and I built something that fixes it, and it's completely free. I know it sounds too good to be true, just give me 30 seconds — how does that sound?"</div>
 <div class="predict">They'll say <a class="pos" style="cursor:pointer" onclick="jumpTo('the-pitch')">"ok go ahead"</a><span style="color:var(--txd);margin:0 6px">│</span><a class="neg" style="cursor:pointer" onclick="jumpTo('obj')">"not interested"</a></div>
 
 <h3 class="h-green">If "not interested" after dodge:</h3>
@@ -1957,6 +1957,17 @@ function setScriptVersion(version){
       permission.innerHTML = `<b>Daniel:</b> "Hi, is this <span class="placeholder biz-name">[Business Name]</span>?"<br><br><b>Daniel:</b> "Yeah, what's up man, this is Daniel."<br><br><b>Daniel:</b> "Uh, you're gonna hate me, but I'm actually here to offer you something."<br><br><b>Daniel:</b> "Do you wanna hang up, or give me 30 seconds?"`;
     }else{
       permission.innerHTML = `<b>Ryan:</b> "I was wondering if I could grab one minute of your time?"`;
+    }
+  }
+
+  // NW version (2026-09-08): the dodge answer is the "nothing changes on your end" explanation in Daniel's voice.
+  var dodgeBody=document.getElementById('dodge-body');
+  if(dodgeBody){
+    if(!dodgeBody.dataset.orig){dodgeBody.dataset.orig=dodgeBody.innerHTML;}
+    if(activeScriptVersion==='nw'){
+      dodgeBody.innerHTML = `<b>Daniel:</b> "So nothing changes on your end. You keep your number, you keep answering like you do now. The only difference is when you don't pick up, after four rings the call goes to the receptionist instead of voicemail. It picks up like a person, asks what's going on, where they are and when they need someone, and tells them you'll call them back to confirm a time. Then it texts you everything, name, address, the problem, their number, and you decide what you take."`;
+    }else{
+      dodgeBody.innerHTML=dodgeBody.dataset.orig;
     }
   }
 
