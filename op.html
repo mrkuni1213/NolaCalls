@@ -1982,6 +1982,8 @@ function setScriptVersion(version){
     if(!dodgeBody.dataset.orig){dodgeBody.dataset.orig=dodgeBody.innerHTML;}
     if(activeScriptVersion==='nw'){
       dodgeBody.innerHTML = `<b>Daniel:</b> "So nothing changes on your end. You keep your number, you keep answering like you do now. The only difference is when you don't pick up, after four rings the call goes to the receptionist instead of voicemail. It picks up like a person, asks what's going on, where they are and how urgent it is. Then it texts you everything, name, address, the problem, their number, and you decide if you can take it."`;
+    }else if(activeScriptVersion==='nm'){
+      dodgeBody.innerHTML = `<b>Ryan:</b> "Yeah, so I've actually started this agency on my own, it's called <span class="placeholder">[Agency Name]</span>, and this could help you guys with all sorts of stuff. Like if you're maybe wanting to get some more customers, the website actually makes Google see you, so they'll just prioritize you more and you'd get more people finding you online, and so on."`;
     }else{
       dodgeBody.innerHTML=dodgeBody.dataset.orig;
     }
