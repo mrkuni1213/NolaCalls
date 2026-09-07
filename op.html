@@ -2015,6 +2015,8 @@ function toggleKSVersion(){
 
 function toggleNMVersion(){
   setScriptVersion(activeScriptVersion==='nm' ? 'default' : 'nm');
+  var on=activeScriptVersion==='nm';
+  document.querySelectorAll('.jm-only').forEach(function(el){el.classList.toggle('ks-hide',on);});
 }
 
 function toggleNWVersion(){
