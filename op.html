@@ -294,6 +294,11 @@ a:hover{text-decoration:underline}
 .meter-window{position:absolute;top:0;bottom:0;background:rgba(57,255,20,.08);border-left:2px solid rgba(57,255,20,.3);border-right:2px solid rgba(57,255,20,.3);transition:all .3s}
 .meter-window.active{background:rgba(57,255,20,.2);box-shadow:inset 0 0 20px rgba(57,255,20,.15)}
 .meter-window.pulse{animation:window-pulse 1.5s ease-out 3}
+.meter-window.salon{background:rgba(255,64,64,.22);border-left:2px solid rgba(255,64,64,.7);border-right:2px solid rgba(255,64,64,.7)}
+.meter-window.auto{background:rgba(64,140,255,.20);border-left:2px solid rgba(64,140,255,.7);border-right:2px solid rgba(64,140,255,.7)}
+.meter-window.salon::after,.meter-window.auto::after{content:attr(data-label);position:absolute;left:4px;top:1px;font-size:8px;font-weight:800;letter-spacing:.06em;color:#fff;opacity:.85}
+#meterWindow,#meterWindow2{display:none}
+
 @keyframes window-pulse{0%{background:rgba(57,255,20,.5);box-shadow:0 0 20px rgba(57,255,20,.4)}50%{background:rgba(57,255,20,.1)}100%{background:rgba(57,255,20,.2);box-shadow:inset 0 0 20px rgba(57,255,20,.15)}}
 .meter-markers{position:absolute;top:0;left:0;right:0;height:100%;display:flex;pointer-events:none;z-index:1}
 .meter-hr{position:absolute;top:0;bottom:0;border-right:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--txd);font-weight:500;opacity:.6}
@@ -381,6 +386,11 @@ window.nolaPasswordPassed=false;
 <div class="meter-wrap" id="meterWrap">
 <div class="meter-window" id="meterWindow"></div>
 <div class="meter-window" id="meterWindow2"></div>
+<div class="meter-window auto" data-label="AUTO" data-from="8" data-to="10"></div>
+<div class="meter-window salon" data-label="SALON" data-from="10" data-to="11.5"></div>
+<div class="meter-window auto" data-label="AUTO" data-from="11.5" data-to="14.5"></div>
+<div class="meter-window salon" data-label="SALON" data-from="14.5" data-to="16"></div>
+<div class="meter-window auto" data-label="AUTO" data-from="16" data-to="17"></div>
 <div class="meter-needle" id="meterNeedle" style="left:0%"></div>
 <div class="meter-markers" id="meterMarkers"></div>
 </div>
@@ -1704,6 +1714,8 @@ var winEnd=(11/24)*100;
 win.style.left=winStart+'%';
 win.style.width=(winEnd-winStart)+'%';
 var win2=document.getElementById('meterWindow2');
+// Website campaign windows (2026-09-08): red = salons/barbers, blue = auto repair. Pacific hours on the bar.
+document.querySelectorAll('.meter-window[data-from]').forEach(function(el){var a=parseFloat(el.dataset.from),b=parseFloat(el.dataset.to);el.style.left=(a/24*100)+'%';el.style.width=((b-a)/24*100)+'%';});
 if(win2){
   var w2Start=(14/24)*100;
   var w2End=(17.5/24)*100;
@@ -1755,7 +1767,7 @@ workHours.forEach(function(w){
   }
 });
 
-var inWindow=(etH>=8&&etH<11)||(etH>=14&&etH<17.5);
+var inWindow=(etH>=8&&etH<17);   // shops with a counter: whole business day (2026-09-08)
 if(anyLive||inWindow){
   if(!win.classList.contains('active')){
     // First time entering — pulse + sound
