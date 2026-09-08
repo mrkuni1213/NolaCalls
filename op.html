@@ -486,11 +486,23 @@ window.nolaPasswordPassed=false;
 <button class="cc-btn" onclick="document.getElementById('ccPanel').classList.toggle('open')" title="4 lines">🃏</button>
 <div class="cc-panel" id="ccPanel">
 <h4>He says → you say</h4>
+<div id="ccDefault">
 <div class="cc-row"><div class="cc-k">"I'm busy"</div><div class="cc-v">"Yeah, that's definitely a good problem to have. But if you're that busy, the calls you can't pick up on the job are going to whoever's next on Google. This doesn't get you more work you don't want, it catches the calls you're already missing and texts you the details, so you pick the good jobs and skip the rest."</div></div>
 <div class="cc-row"><div class="cc-k">"I answer myself" / "more personal"</div><div class="cc-v">"You will still pick up. Our receptionist just takes the call when you can't — like when you're under a sink, or sleeping, or in the weekends. Right now those people get voicemail, and most hang up and call the next plumber."</div></div>
 <div class="cc-row"><div class="cc-k">"Busy" / "busy is good"</div><div class="cc-v">"Exactly. And the busier you are, the more calls hit voicemail."</div></div>
 <div class="cc-row"><div class="cc-k">"Not big enough" / "no office"</div><div class="cc-v">"It's ninety-nine bucks, not a salary. It's built for one-truck guys."</div></div>
 <div class="cc-row"><div class="cc-k">Any goodbye, yes or no</div><div class="cc-v">"Save this number: <span class="cc-num">209-414-5201</span>. Call it when you're driving. Thirty seconds, you'll hear it."</div></div>
+</div>
+<div id="ccNM" style="display:none">
+<div style="font-size:11px;color:var(--txd);margin-bottom:6px">NM version. Click any answer to edit it, it saves on this browser.</div>
+<div class="cc-row"><div class="cc-k">"We don't need a website."</div><div class="cc-v" contenteditable="true" data-cc="nm0">"Yeah, that's totally fair, you've done fine without one. The only reason I built it is that when someone Googles you, the guy next door with a site shows up first."</div></div>
+<div class="cc-row"><div class="cc-k">"We already have someone building one."</div><div class="cc-v" contenteditable="true" data-cc="nm1">"Oh, that's nice. Yeah, I see, you could look at both, mine is already done, you can keep the better one."</div></div>
+<div class="cc-row"><div class="cc-k">"How much?"</div><div class="cc-v" contenteditable="true" data-cc="nm2">"It's a hundred and fifty a month, hosting and everything included, cancel whenever. Nothing today, you're just looking at it."</div></div>
+<div class="cc-row"><div class="cc-k">"I'm busy right now."</div><div class="cc-v" contenteditable="true" data-cc="nm3">"Yeah, that's a good problem to have. When would you say you'd be available so I can show it to you? It's free, and if you don't like it that's totally fine."</div></div>
+<div class="cc-row"><div class="cc-k">"Not interested."</div><div class="cc-v" contenteditable="true" data-cc="nm4">"No worries. Just so you know, it's already built, it's got your name on it, and looking costs you nothing. I'll send it to your email and if it's not for you, delete it. What's the address?"</div></div>
+<div class="cc-row"><div class="cc-k">"Show me" / "Send it to me"</div><div class="cc-v" contenteditable="true" data-cc="nm5">"Sure, what's the best email? I'll send it there right after we hang up. Or if you've got two minutes now, I can share my screen and walk you through it."</div></div>
+</div>
+
 </div>
 
 <!-- TITLE -->
@@ -1950,6 +1962,8 @@ function setScriptVersion(version){
   var ksBtn=document.getElementById('ksToggle');
   var nwBtn=document.getElementById('nwToggle');
   var nmBtn=document.getElementById('nmToggle');
+  var ccD=document.getElementById('ccDefault'),ccN=document.getElementById('ccNM');
+  if(ccD&&ccN){ccD.style.display=activeScriptVersion==='nm'?'none':'';ccN.style.display=activeScriptVersion==='nm'?'':'none';}
   var intro=document.getElementById('jm-intro-line');
   var permission=document.getElementById('jm-permission-line');
 
@@ -2014,6 +2028,8 @@ function toggleJMVersion(){
 function toggleKSVersion(){
   setScriptVersion(activeScriptVersion==='ks' ? 'default' : 'ks');
 }
+
+document.querySelectorAll('[data-cc]').forEach(function(el){try{var v=localStorage.getItem('cc_'+el.dataset.cc);if(v)el.innerHTML=v;}catch(e){}el.addEventListener('input',function(){try{localStorage.setItem('cc_'+el.dataset.cc,el.innerHTML);}catch(e){}});});
 
 function toggleNMVersion(){
   setScriptVersion(activeScriptVersion==='nm' ? 'default' : 'nm');
