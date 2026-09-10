@@ -339,6 +339,21 @@ a:hover{text-decoration:underline}
 .collapsible-card.open .collapsible-arrow{transform:rotate(90deg)}
 .collapsible-content{display:none;padding:16px}
 .collapsible-card.open .collapsible-content{display:block}
+
+/* ===== ROMANIA SCRIPT MODE ===== */
+#roScriptPanel{display:none}
+body.ro-mode #roScriptPanel{display:block}
+body.ro-mode #s1,body.ro-mode #s1~*{display:none!important}
+body.ro-mode .timebar{display:none!important}
+body.ro-mode .side{display:none!important}
+body.ro-mode .leads-btn,body.ro-mode .work-btn-fixed,body.ro-mode .log-btn{display:none!important}
+body.ro-mode .cc-btn,body.ro-mode .cc-panel{display:none!important}
+.ro-section{margin:28px 0}
+.ro-kicker{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--c);font-weight:800;margin-bottom:8px}
+.ro-choice{background:var(--sf);border:1px solid var(--ln);border-radius:14px;padding:18px 18px;margin:12px 0}
+.ro-choice h3{margin:0 0 10px;color:var(--a)}
+.ro-pause{font-size:14px;color:#39FF14;font-weight:700;padding:8px 0 8px 24px;border-left:3px solid #39FF14;margin:0}
+.ro-note{font-size:14px;color:var(--txm);margin-top:8px}
 </style>
 <script src="https://unpkg.com/compromise"></script>
 <script>var LEADS=[];</script>
@@ -509,11 +524,114 @@ window.nolaPasswordPassed=false;
 <!-- TITLE -->
 <div class="subtitle">Cold Call Script &<br>Operations Manual</div>
 
+
+<!-- ROMANIA FULL SCRIPT -->
+<div id="roScriptPanel">
+  <button class="jm-toggle active" type="button" onclick="toggleJMVersion()" style="float:none;margin:12px 0 0">← Înapoi</button>
+  <div class="subtitle" style="margin-top:8px">Cold Call România</div>
+  <div class="intro"><p><strong>Scopul apelului:</strong> nu vinzi site-ul la telefon. Creezi curiozitate, îl lași să proceseze situația, apoi stabilești o prezentare scurtă pe Google Meet.</p></div>
+
+  <div class="ro-section">
+    <div class="ro-kicker">1 — Deschidere</div>
+    <div class="card">
+      <div class="card-label">Opening line</div>
+      <div class="say"><b>Ryan:</b> „Alo, bună ziua! <span class="placeholder biz-name">[Numele firmei]</span>?”</div>
+      <div class="say"><b>Ryan:</b> „Vorbesc cu proprietarul?”</div>
+      <p class="ro-note">Dacă da, continui. Dacă nu, mergi la Gatekeeper de mai jos.</p>
+    </div>
+  </div>
+
+  <div class="ro-section">
+    <div class="ro-kicker">2 — Observația + întrebarea</div>
+    <div class="card">
+      <div class="card-label">Nu prezenta încă soluția</div>
+      <div class="say"><b>Ryan:</b> „Perfect. Uite, mă uitam mai devreme la voi pe Google, că voiam să văd serviciile și prețurile, și am observat că nu aveți un site.”</div>
+      <div class="say"><b>Ryan:</b> „Mă întrebam dacă v-ați gândit vreodată să vă faceți unul?”</div>
+      <p class="ro-pause">PAUZĂ. Lasă-l să răspundă și să-și explice singur situația.</p>
+    </div>
+  </div>
+
+  <div class="ro-section">
+    <div class="ro-kicker">3 — După răspunsul lui</div>
+    <div class="card">
+      <div class="card-label">Reveal</div>
+      <div class="say"><b>Ryan:</b> „Da, am înțeles.”</div>
+      <div class="say"><b>Ryan:</b> „V-am întrebat pentru că eu chiar v-am făcut deja unul.”</div>
+      <p class="ro-pause">PAUZĂ. Nu explica imediat. Lasă-l să întrebe.</p>
+      <div class="say"><b>Ryan:</b> „M-am uitat la ce aveți despre firmă online și am făcut o variantă pentru voi. Dacă ați avea puțin timp zilele astea, aș putea să vi-l arăt.”</div>
+    </div>
+  </div>
+
+  <div class="ro-section">
+    <div class="ro-kicker">4 — Răspunsuri naturale</div>
+
+    <div class="ro-choice"><h3>„Cum adică mi-ai făcut deja un site?”</h3><div class="say"><b>Ryan:</b> „Adică e făcut deja, da. Am luat informațiile publice despre firmă și am pus cap la cap o variantă completă pentru voi. Nu e publicat sau ceva, doar am vrut să vă pot arăta concret cum ar putea să arate.”</div></div>
+
+    <div class="ro-choice"><h3>„Ce ar avea pe el?”</h3><div class="say"><b>Ryan:</b> „Cam tot ce ar vrea să vadă cineva înainte să vă contacteze — serviciile, poze cu lucrările, recenziile, zona în care lucrați, datele de contact și o metodă simplă prin care să vă sune sau să ceară o ofertă.”</div></div>
+
+    <div class="ro-choice"><h3>„De ce l-ai făcut?”</h3><div class="say"><b>Ryan:</b> „Pentru că asta încerc să pornesc acum. Aleg câteva firme care mi se par bune și care nu au site, le fac întâi o variantă și după îi contactez. Mi se pare mai normal să aveți ceva concret de văzut decât să vă sun doar să vă spun că fac site-uri.”</div></div>
+
+    <div class="ro-choice"><h3>„Nu avem nevoie de site / n-am avut nevoie până acum.”</h3><div class="say"><b>Ryan:</b> „Da, înțeleg. Și clar v-ați descurcat și fără până acum. V-am întrebat tocmai pentru că eu deja am făcut o variantă pentru voi.”</div><p class="ro-note">Nu te certa cu obiecția. Nu repeta invitația dacă ai făcut-o deja.</p></div>
+
+    <div class="ro-choice"><h3>„Avem Facebook / Instagram.”</h3><div class="say"><b>Ryan:</b> „Da, am văzut. Și site-ul nu ar fi în loc de Facebook sau Instagram. E mai mult pentru omul care vă caută pe Google și vrea să vadă într-un singur loc ce faceți, lucrările, recenziile și cum vă poate contacta.”</div></div>
+
+    <div class="ro-choice"><h3>„Am avut un site.”</h3><div class="say"><b>Ryan:</b> „A, am înțeles. Și ce s-a întâmplat cu el?”</div><p class="ro-pause">ASCULTĂ. După ce explică: „Am înțeles. V-am întrebat pentru că eu chiar v-am făcut o variantă nouă.”</p></div>
+
+    <div class="ro-choice"><h3>„Cât costă?”</h3><div class="say"><b>Ryan:</b> „Să-l vedeți, nimic. Dacă după vă place și vreți să-l folosiți, este <span class="stat">[399 / 499 lei pe lună]</span>. Acolo intră site-ul, găzduirea, mentenanța și modificările de bază pe care mai vreți să le facem.”</div></div>
+
+    <div class="ro-choice"><h3>„Trimite-mi site-ul pe WhatsApp.”</h3><div class="say"><b>Ryan:</b> „Sigur. Doar că prima dată aș prefera să vi-l arăt eu, fiindcă sunt câteva lucruri pe care e mai simplu să vi le explic direct. Durează cam 10 minute și vă trimit eu un link pe WhatsApp pe care doar apăsați.”</div></div>
+
+    <div class="ro-choice"><h3>„Trimite-mi pe email.”</h3><div class="say"><b>Ryan:</b> „Sigur. Doar că fiind făcut special pentru firma voastră, sunt câteva lucruri pe care aș prefera să vi le explic prima dată, ca să aibă context când îl vedeți.”</div></div>
+
+    <div class="ro-choice"><h3>„Nu mă interesează.”</h3><div class="say"><b>Ryan:</b> „Da, am înțeles. Nicio problemă. Doar că, fiind deja făcut pentru firma voastră, dacă ați avea puțin timp zilele astea aș putea să vi-l arăt și vedeți voi ce părere aveți.”</div><p class="ro-note">Dacă refuză din nou: „Am înțeles, nicio problemă. O zi bună!” Nu împinge a treia oară.</p></div>
+
+    <div class="ro-choice"><h3>„Nu am timp acum.”</h3><div class="say"><b>Ryan:</b> „Da, sigur, înțeleg. Mă refeream oricum la când aveți dumneavoastră puțin timp liber zilele astea.”</div></div>
+  </div>
+
+  <div class="ro-section">
+    <div class="ro-kicker">5 — Gatekeeper</div>
+    <div class="card">
+      <div class="say"><b>Ryan:</b> „Bună ziua! Vorbesc cu proprietarul?”</div>
+      <div class="predict">Dacă întreabă „Despre ce este vorba?”</div>
+      <div class="say"><b>Ryan:</b> „Am făcut o variantă de site pentru firmă și voiam să vorbesc puțin cu dumnealui despre ea. Știți cumva când îl pot găsi?”</div>
+      <div class="predict">Dacă insistă:</div>
+      <div class="say"><b>Ryan:</b> „Am făcut o variantă nouă de site pentru firmă și voiam doar să i-o prezint proprietarului.”</div>
+    </div>
+  </div>
+
+  <div class="ro-section">
+    <div class="ro-kicker">6 — Programarea prezentării</div>
+    <div class="card">
+      <div class="card-label">Google Meet</div>
+      <div class="say"><b>Ryan:</b> „Perfect. Când ați avea puțin timp? Eu pot [marți după 4] sau [miercuri pe la 11].”</div>
+      <div class="predict">După ce alege:</div>
+      <div class="say"><b>Ryan:</b> „Perfect. Ăsta este și numărul dumneavoastră de WhatsApp?”</div>
+      <div class="say"><b>Ryan:</b> „Super. Vă dau eu un mesaj acolo și înainte de ora stabilită vă trimit link-ul. Doar apăsați pe el și intrați.”</div>
+      <div class="say"><b>Ryan:</b> „Atunci rămâne [miercuri la 11]. Mulțumesc, o zi bună!”</div>
+    </div>
+  </div>
+
+  <div class="ro-section">
+    <div class="ro-kicker">Cheat sheet</div>
+    <div class="goal">
+      <h2>Ordinea de ținut minte</h2>
+      <p>1. „Bună ziua, [firma]?”</p>
+      <p>2. „Vorbesc cu proprietarul?”</p>
+      <p>3. Observația despre Google + lipsa site-ului</p>
+      <p>4. „V-ați gândit vreodată să vă faceți unul?”</p>
+      <p>5. Ascultă</p>
+      <p>6. „V-am întrebat pentru că eu chiar v-am făcut deja unul.”</p>
+      <p>7. Pauză</p>
+      <p>8. Dacă există interes: stabilești 10 minute pe Meet</p>
+    </div>
+  </div>
+</div>
+
 <!-- STEP 1 -->
 <h2 id="s1" style="color:#A6E3A1;border-left-color:#A6E3A1;background:rgba(166,227,161,.08)">Step 1 — Verify the Owner <span class="stat-lime">[OPENER]</span></h2>
 <div class="card">
 <div class="card-label">Opening line</div>
-<div class="say"><b>Ryan:</b> "Hi, is this the owner of <span class="placeholder biz-name">[Business Name]</span>?"</div>
+<div class="say" id="owner-opening-line"><b>Ryan:</b> "Hi, is this the owner of <span class="placeholder biz-name">[Business Name]</span>?"</div>
 
 <button class="expand-btn btn-green" onclick="toggleExpand(this)">If YES → Go to Step 2</button>
 <div class="expand-body">
@@ -568,7 +686,7 @@ window.nolaPasswordPassed=false;
 <hr class="div">
 
 <!-- STEP 2 -->
-<h2 id="s2" style="color:#A6E3A1;border-left-color:#A6E3A1;background:rgba(166,227,161,.08)">Step 2 — Pitch <span class="stat-lime">MAIN SCRIPT</span><button class="jm-toggle" id="nmToggle" onclick="toggleNMVersion()" type="button">NM</button><button class="jm-toggle" id="ksToggle" onclick="toggleKSVersion()" type="button">KS</button><button class="jm-toggle" id="nwToggle" onclick="toggleNWVersion()" type="button">NW</button><button class="jm-toggle" id="jmToggle" onclick="toggleJMVersion()" type="button">JM</button></h2>
+<h2 id="s2" style="color:#A6E3A1;border-left-color:#A6E3A1;background:rgba(166,227,161,.08)">Step 2 — Pitch <span class="stat-lime">MAIN SCRIPT</span><button class="jm-toggle" id="nmToggle" onclick="toggleNMVersion()" type="button">NM</button><button class="jm-toggle" id="ksToggle" onclick="toggleKSVersion()" type="button">KS</button><button class="jm-toggle" id="nwToggle" onclick="toggleNWVersion()" type="button">NW</button><button class="jm-toggle" id="jmToggle" onclick="toggleJMVersion()" type="button">RO</button></h2>
 
 <div class="card">
 <div id="pastCallCard" class="collapsible-card">
@@ -1958,6 +2076,7 @@ var activeScriptVersion='default';
 
 function setScriptVersion(version){
   activeScriptVersion=version;
+  document.body.classList.toggle('ro-mode', version==='jm');
 
   var jmBtn=document.getElementById('jmToggle');
   var ksBtn=document.getElementById('ksToggle');
@@ -1967,6 +2086,16 @@ function setScriptVersion(version){
   if(ccD&&ccN){ccD.style.display=activeScriptVersion==='nm'?'none':'';ccN.style.display=activeScriptVersion==='nm'?'':'none';}
   var intro=document.getElementById('jm-intro-line');
   var permission=document.getElementById('jm-permission-line');
+  var ownerOpening=document.getElementById('owner-opening-line');
+
+  if(ownerOpening){
+    if(!ownerOpening.dataset.orig){ownerOpening.dataset.orig=ownerOpening.innerHTML;}
+    if(activeScriptVersion==='nm'){
+      ownerOpening.innerHTML = `<b>Ryan:</b> "Alo, bună ziua! <span class="placeholder biz-name">[Business Name]</span>?"<br><br><b>Ryan:</b> "Vorbesc cu proprietarul?"`;
+    }else{
+      ownerOpening.innerHTML=ownerOpening.dataset.orig;
+    }
+  }
 
   if(jmBtn){jmBtn.classList.toggle('active',activeScriptVersion==='jm');}
   if(ksBtn){ksBtn.classList.toggle('active',activeScriptVersion==='ks');}
@@ -1985,7 +2114,7 @@ function setScriptVersion(version){
     }else if(activeScriptVersion==='nw'){
       permission.innerHTML = `<b>Daniel:</b> "Hi, is this <span class="placeholder biz-name">[Business Name]</span>?"<br><br><b>Daniel:</b> "Yeah, what's up man, this is Daniel."<br><br><b>Daniel:</b> "Uh, you're gonna hate me, but I'm actually here to offer you something."<br><br><b>Daniel:</b> "Do you wanna hang up, or give me 30 seconds?"`;
     }else if(activeScriptVersion==='nm'){
-      permission.innerHTML = `<b>Ryan:</b> "Hellooo, is this <span class="placeholder biz-name">[Business Name]</span>?"<br><br><b>Ryan:</b> "Hi <span class="placeholder owner-name">[Owner Name]</span>, yeah, so I was browsing online for your prices and services and I noticed you guys didn't have a website. I was wondering why is that?"`;
+      permission.innerHTML = `<b>Ryan:</b> "Perfect. Uite, mă uitam mai devreme la voi pe Google, că voiam să văd serviciile și prețurile, și am observat că nu aveți un site."<br><br><b>Ryan:</b> "Mă întrebam dacă v-ați gândit vreodată să vă faceți unul?"`;
     }else{
       permission.innerHTML = `<b>Ryan:</b> "I was wondering if I could grab one minute of your time?"`;
     }
@@ -2014,7 +2143,7 @@ function setScriptVersion(version){
       okBody.innerHTML = `<b>Daniel:</b> "Alright, thanks man, so it's pretty straightforward. Right now, when somebody is calling you and you're under a sink and you cannot get to the phone, or maybe when you're sleeping, or when you're in the weekend and you'd like to have some free time — the people calling you just hit the voicemail, right?"<br><br><span class="predict">wait for <span class="pos">"yeah"</span></span><br><br><b>Daniel:</b> "Yeah, so most of the time they basically hang up and call the next plumber, so most of those jobs are lost, so I've built an AI receptionist that catches all of those leads, books them, and texts you all the info."`;
     }else if(activeScriptVersion==='nm'){
       okHead.innerHTML = `Whatever their answer is:`;
-      okBody.innerHTML = `<b>Ryan:</b> "I see / I understand. Yeah, so the reason for the call today is that I've actually gone ahead and built you guys a full website already. And so if you're up for it, I could maybe show it to you guys sometimes this week whenever you're available. It's totally free to look at, and I'm not charging any expensive prices, I'm a college student and I'm just starting up, you know?"`;
+      okBody.innerHTML = `<b>Ryan:</b> "Da, am înțeles."<br><br><b>Ryan:</b> "V-am întrebat pentru că eu chiar v-am făcut deja unul."<br><br><span class="predict"><b>PAUZĂ — lasă-l să reacționeze.</b></span><br><br><b>Ryan:</b> "M-am uitat la ce aveți despre firmă online și am făcut o variantă pentru voi. Dacă ați avea puțin timp zilele astea, aș putea să vi-l arăt."`;
     }else{
       okHead.innerHTML=okHead.dataset.orig;
       okBody.innerHTML=okBody.dataset.orig;
