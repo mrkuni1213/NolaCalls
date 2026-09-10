@@ -485,7 +485,7 @@ window.nolaPasswordPassed=false;
 <!-- CHEAT CARD -->
 <button class="cc-btn" onclick="document.getElementById('ccPanel').classList.toggle('open')" title="4 lines">🃏</button>
 <div class="cc-panel" id="ccPanel">
-<h4>He says → you say</h4>
+<h4 id="cheat-title">He says → you say</h4>
 <div id="ccDefault">
 <div class="cc-row"><div class="cc-k">"I'm busy"</div><div class="cc-v">"Yeah, that's definitely a good problem to have. But if you're that busy, the calls you can't pick up on the job are going to whoever's next on Google. This doesn't get you more work you don't want, it catches the calls you're already missing and texts you the details, so you pick the good jobs and skip the rest."</div></div>
 <div class="cc-row"><div class="cc-k">"I answer myself" / "more personal"</div><div class="cc-v">"You will still pick up. Our receptionist just takes the call when you can't — like when you're under a sink, or sleeping, or in the weekends. Right now those people get voicemail, and most hang up and call the next plumber."</div></div>
@@ -501,7 +501,7 @@ window.nolaPasswordPassed=false;
 <div class="cc-row"><div class="cc-k">„Nu am timp”</div><div class="cc-v">„Da, sigur, înțeleg. Mă refeream oricum la când aveți dumneavoastră puțin timp liber zilele astea.”</div></div>
 <div class="cc-row"><div class="cc-k">„Cât costă?”</div><div class="cc-v">„Ca să îl vedeți, e gratis. Dacă după vă place și vreți să-l folosiți, e <b>200 de lei pe lună</b>. Acolo intră site-ul, găzduirea, mentenanța și modificările pe care vreți să le facem oricând.”</div></div>
 <div class="cc-row"><div class="cc-k">„Trimite-mi-l”</div><div class="cc-v">„Uitați care e chestia, site-ul la momentul actual nu este găzduit, nu este pe internet practic, îl am doar eu pe calculator. Cel mai bun mod este să vă trimit pe WhatsApp un link de Google Meet, stabilim o zi și o oră, iar acolo vă arăt tot site-ul — ce conține, cum este organizat și cum poate un client să vă contacteze direct. Ar dura maximum 10 minute.”</div></div>
-<div class="cc-row"><div class="cc-k">„Trimite pe email”</div><div class="cc-v">„Sigur. Doar că fiind un site făcut special pentru firma voastră, sunt câteva lucruri pe care aș prefera să vi le explic prima dată, ca să aibă puțin context când îl vedeți.”</div></div>
+<div class="cc-row"><div class="cc-k">„Trimite pe email”</div><div class="cc-v">„Sigur. Doar că site-ul nu este încă publicat pe internet, îl am momentan doar eu pe calculator. Cel mai bun mod este să stabilim o zi și o oră și să vi-l arăt prin Google Meet.”</div></div>
 </div>
 
 <div id="ccNM" style="display:none">
@@ -581,7 +581,7 @@ window.nolaPasswordPassed=false;
 <!-- STEP 2 -->
 <h2 id="s2" style="color:#A6E3A1;border-left-color:#A6E3A1;background:rgba(166,227,161,.08)">Step 2 — Pitch <span class="stat-lime">MAIN SCRIPT</span><button class="jm-toggle" id="nmToggle" onclick="toggleNMVersion()" type="button">NM</button><button class="jm-toggle" id="ksToggle" onclick="toggleKSVersion()" type="button">KS</button><button class="jm-toggle" id="nwToggle" onclick="toggleNWVersion()" type="button">NW</button><button class="jm-toggle" id="roToggle" onclick="toggleROVersion()" type="button">RO</button></h2>
 
-<div class="card">
+<div class="card" id="step2-card">
 <div id="pastCallCard" class="collapsible-card">
 <div class="collapsible-header" onclick="toggleCollapse('pastCallCard')">
 <span>If you already called in the past</span><span class="collapsible-arrow">▶</span>
@@ -1990,7 +1990,7 @@ function setScriptVersion(version){
 
   if(permission){
     if(activeScriptVersion==='ro'){
-      permission.innerHTML = `<b>Ryan:</b> "Perfect. Uite, mă uitam mai devreme la voi pe Google, că voiam să văd serviciile și prețurile, și am observat că nu aveți un site."<br><br><b>Ryan:</b> "Mă întrebam dacă v-ați gândit vreodată să vă faceți unul?"`;
+      permission.innerHTML = `<b>Ryan:</b> "I was wondering if I could grab one minute of your time?"`;
     }else if(activeScriptVersion==='ks'){
       permission.innerHTML = `<b>Ryan:</b> "Hi, is this <span class="placeholder biz-name">[Business Name]</span> in Georgia?"<br><br><b>Ryan:</b> "Hey, well, yeah, what's up man, uhm, yeah, so my friend Julie Becker, actually, my mom's friend kinda gave me your number, she said you guys still rely mostly on the phone for new customers."`;
     }else if(activeScriptVersion==='nw'){
@@ -2060,9 +2060,69 @@ function toggleNWVersion(){
 function applyROMode(){
   var on = activeScriptVersion === 'ro';
 
-  var step1 = document.getElementById('step1-card');
+  function swapHTML(el, key, value){
+    if(!el) return;
+    var k='roOrig'+key;
+    if(el.dataset[k]===undefined) el.dataset[k]=el.innerHTML;
+    el.innerHTML = on ? value : el.dataset[k];
+  }
+
+  // Headings / labels
+  var subtitle=document.querySelector('.subtitle');
+  swapHTML(subtitle,'Subtitle','Script apel la rece &<br>Manual operațional');
+
+  var s1=document.getElementById('s1');
+  swapHTML(s1,'S1','Pasul 1 — Verifică proprietarul <span class="stat-lime">[DESCHIDERE]</span>');
+
+  var s2=document.getElementById('s2');
+  if(s2){
+    if(s2.dataset.roOrigS2===undefined) s2.dataset.roOrigS2=s2.innerHTML;
+    s2.innerHTML = on
+      ? `Pasul 2 — Discuția <span class="stat-lime">SCRIPT PRINCIPAL</span><button class="jm-toggle" id="nmToggle" onclick="toggleNMVersion()" type="button">NM</button><button class="jm-toggle" id="ksToggle" onclick="toggleKSVersion()" type="button">KS</button><button class="jm-toggle" id="nwToggle" onclick="toggleNWVersion()" type="button">NW</button><button class="jm-toggle active" id="roToggle" onclick="toggleROVersion()" type="button">RO</button>`
+      : s2.dataset.roOrigS2;
+  }
+
+  var cheatTitle=document.getElementById('cheat-title');
+  swapHTML(cheatTitle,'Cheat','El spune → tu răspunzi');
+
+
+  // Always-visible surrounding UI.
+  var side=document.querySelector('nav.side');
+  if(side){
+    if(side.dataset.roOrigNav===undefined) side.dataset.roOrigNav=side.innerHTML;
+    side.innerHTML = on ? `
+      <a href="/meeting" class="meeting-link">📋 Întâlniri</a>
+      <div class="side-logo"><div class="side-logo-mark"></div><span class="side-logo-name">Nola</span></div>
+      <a href="#s1"><span class="ic">1️⃣</span>Verifică proprietarul</a>
+      <a href="#s2"><span class="ic">2️⃣</span>Deschidere + discuție</a>
+      <a href="javascript:void(0)" onclick="document.getElementById('ccPanel').classList.add('open')"><span class="ic">🛡️</span>Răspunsuri rapide</a>
+    ` : side.dataset.roOrigNav;
+  }
+
+  var caller=document.getElementById('callerWidget');
+  if(caller){
+    if(caller.dataset.roOrigCaller===undefined) caller.dataset.roOrigCaller=caller.innerHTML;
+    caller.innerHTML = on ? `
+      <div class="caller-top">
+        <div class="caller-dot"></div>
+        <div>
+          <div class="caller-label">Vorbiți acum cu</div>
+          <div id="callerPhone" style="color:var(--c);font-size:13px;font-weight:600;margin-bottom:2px"></div>
+          <div class="caller-name" id="callerName">Ascult...</div>
+          <div class="caller-listening" id="callerStatus">🎙️ Aștept numele...</div>
+        </div>
+      </div>
+      <div class="caller-input-row">
+        <input class="caller-input" id="companyInput" type="text" placeholder="Numele firmei..." onkeydown="if(event.key==='Enter'){var n=document.getElementById('callerName').textContent;var c=this.value.trim();if(c){document.getElementById('callerName').textContent=n.replace(/ — .*/,'')+' — '+c;document.querySelectorAll('.biz-name').forEach(function(el){el.textContent=c})}this.blur()}">
+        <button class="caller-clear" onclick="document.getElementById('companyInput').value='';document.getElementById('callerName').textContent='Ascult...';document.getElementById('callerPhone').textContent='';document.getElementById('callerStatus').textContent='🎙️ Aștept numele...';detectedName=null;document.querySelectorAll('.biz-name').forEach(function(el){el.textContent='[Numele firmei]'});document.querySelectorAll('.owner-name').forEach(function(el){el.textContent='[Numele proprietarului]'})" title="Șterge">✕</button>
+      </div>
+    ` : caller.dataset.roOrigCaller;
+  }
+
+  // STEP 1: full Romanian block.
+  var step1=document.getElementById('step1-card');
   if(step1){
-    if(!step1.dataset.orig) step1.dataset.orig = step1.innerHTML;
+    if(step1.dataset.roOrigStep1===undefined) step1.dataset.roOrigStep1=step1.innerHTML;
     step1.innerHTML = on ? `
       <div class="card-label">Deschiderea apelului</div>
       <div class="say"><b>Ryan:</b> "Alo, bună ziua! <span class="placeholder biz-name">[Numele firmei]</span>?"<br><br>
@@ -2070,12 +2130,9 @@ function applyROMode(){
 
       <button class="expand-btn btn-green" onclick="toggleExpand(this)">Dacă DA → Mergi la Pasul 2</button>
       <div class="expand-body">
-        <div class="predict" style="font-size:15px;font-weight:600;padding:10px 0 10px 24px">
-          <span class="pos">Dacă DA →</span> <a href="#s2" class="go">Mergi la Pasul 2</a>
-        </div>
-        <div class="predict" style="font-size:15px;font-weight:600;padding:4px 0 10px 24px">
-          <a style="color:#F59E0B;cursor:pointer" onclick="jumpTo('whos-calling')">Dacă întreabă „Cine sunteți?” / „Despre ce este vorba?” →</a>
-        </div>
+        <div class="predict"><span class="pos">Dacă DA →</span> <a href="#s2" class="go">Mergi la Pasul 2</a></div>
+        <div class="predict">Dacă întreabă <b>„Cine sunteți?” / „Despre ce este vorba?”</b> →</div>
+        <div class="say"><b>Ryan:</b> "Sunt Ryan. Am făcut o variantă de site pentru firmă și voiam să vorbesc puțin cu proprietarul despre ea."</div>
       </div>
 
       <button class="expand-btn btn-red" onclick="toggleExpand(this)">Dacă NU</button>
@@ -2087,106 +2144,111 @@ function applyROMode(){
           <div class="say"><b>Ryan:</b> "Am făcut o variantă de site pentru firmă și voiam să vorbesc puțin cu proprietarul despre ea. Știți cumva când îl pot găsi?"</div>
           <div class="predict">Dacă întreabă mai multe →</div>
           <div class="say"><b>Ryan:</b> "Am făcut o variantă nouă de site pentru firmă și voiam doar să i-o prezint proprietarului."</div>
-          <div class="predict">Dacă vă spune când îl găsiți → Notați și sunați atunci.</div>
+          <div class="predict">Dacă vă spune când îl găsiți → notați și sunați atunci.</div>
         </div>
 
         <button class="expand-btn btn-red" onclick="toggleExpand(this)">Soție / Membru al familiei</button>
         <div class="expand-body">
           <div class="say"><b>Ryan:</b> "Am înțeles. Eu voiam să vorbesc puțin cu proprietarul despre o variantă de site pe care am făcut-o pentru firmă. Știți cumva când îl pot găsi?"</div>
-          <div class="predict">Dacă vă spune când îl găsiți → Notați și sunați atunci.</div>
+          <div class="predict">Dacă vă spune când îl găsiți → notați și sunați atunci.</div>
         </div>
       </div>
 
-      <button class="expand-btn btn-orange" id="whos-calling" onclick="toggleExpand(this)">Dacă întreabă „Cine sunteți?” / „Despre ce este vorba?”</button>
+      <button class="expand-btn btn-orange" onclick="toggleExpand(this)">Dacă spune că este ocupat</button>
       <div class="expand-body">
-        <div class="say"><b>Ryan:</b> "Sunt Ryan. Am făcut o variantă de site pentru firmă și voiam să vorbesc puțin cu proprietarul despre ea. Este disponibil?"</div>
-        <div class="predict">Dacă NU →</div>
-        <div class="say"><b>Ryan:</b> "Am înțeles. Știți cumva când îl pot găsi?"</div>
+        <div class="say"><b>Ryan:</b> "Sigur, nicio problemă. Când ar fi mai bine să vă sun?"</div>
       </div>
-    ` : step1.dataset.orig;
+    ` : step1.dataset.roOrigStep1;
   }
 
-  var quick = document.getElementById('roQuickPanel');
-  if(quick){
-    if(!quick.dataset.orig) quick.dataset.orig = quick.innerHTML;
-    quick.innerHTML = on ? `
-      <div style="font-size:12px;color:#F59E0B;font-weight:700;margin-bottom:8px;text-align:center">RO — QUICK HANDLERS</div>
+  // STEP 2: full Romanian block. No inherited US/AI-receptionist copy.
+  var step2=document.getElementById('step2-card');
+  if(step2){
+    if(step2.dataset.roOrigStep2===undefined) step2.dataset.roOrigStep2=step2.innerHTML;
+    step2.innerHTML = on ? `
+      <div class="say-wrap">
+        <div>
+          <div class="say"><b>Ryan:</b> "Perfect. Uitați, mă uitam mai devreme la firma dumneavoastră pe Google, voiam să văd serviciile și prețurile și am observat că nu aveți un site."</div>
 
-      <div class="say"><b>„Cum adică mi-ai făcut deja un site?”</b><br><br>
-      <b>Ryan:</b> "Adică e făcut deja, da. Am luat ce am găsit public despre firmă și am pus cap la cap o variantă completă pentru voi. Dacă ați avea timp, aș putea să vi-l arăt cândva zilele astea."</div>
+          <div class="say"><b>Ryan:</b> "Mă întrebam dacă v-ați gândit vreodată să vă faceți unul?"</div>
 
-      <div class="say"><b>„Și ce are pe el?”</b><br><br>
-      <b>Ryan:</b> "Cam tot ce ar vrea să vadă cineva înainte să vă sune — ce servicii aveți, poze, recenzii, zona în care lucrați și o metodă prin care să vă contacteze."</div>
+          <div class="predict"><b>TACI.</b> Lasă-i să răspundă. Nu le da tu problema și soluția în aceeași propoziție.</div>
 
-      <div class="say"><b>„De ce l-ai făcut?”</b><br><br>
-      <b>Ryan:</b> "Mi-am făcut propria agenție de site-uri pentru firme locale și ideea noastră e să facem lucrurile la un nivel mai bun decât ce oferă majoritatea firmelor de profil din România. Am găsit firma dumneavoastră pe Google, am văzut că aveți recenzii bune și că deja aveți o reputație bună, dar nu aveți un site. Mi s-a părut că v-ar ajuta să aveți unul, mai ales în 2026, așa că v-am făcut o variantă."</div>
+          <h3 class="h-green">După ce răspund:</h3>
+          <div class="say"><b>Ryan:</b> "Da, am înțeles."</div>
 
-      <div class="say"><b>„Cât costă?”</b><br><br>
-      <b>Ryan:</b> "Ca să îl vedeți, e gratis. Dacă după vă place și vreți să-l folosiți, e <b>200 de lei pe lună</b>. Acolo intră site-ul, găzduirea, mentenanța și modificările pe care vreți să le facem oricând."</div>
+          <div class="say"><b>Ryan:</b> "V-am întrebat pentru că eu chiar v-am făcut deja unul."</div>
 
-      <div class="say"><b>„Trimite-mi-l pe WhatsApp.”</b><br><br>
-      <b>Ryan:</b> "Uitați care e chestia, site-ul la momentul actual nu este găzduit, nu este pe internet practic, îl am doar eu pe calculator. Cel mai bun mod este să vă trimit pe WhatsApp un link de Google Meet, stabilim o zi și o oră, iar acolo vă arăt tot site-ul — ce conține, cum este organizat și cum poate un client să vă contacteze direct. Ar dura maximum 10 minute."</div>
-    ` : quick.dataset.orig;
+          <div class="predict"><b>TACI DIN NOU.</b> Lasă-i să reacționeze.</div>
+
+          <div class="say"><b>Ryan:</b> "M-am uitat la ce aveți online și am făcut o variantă pentru firma dumneavoastră, cu serviciile, recenziile și pozele pe care le-am găsit. Nu este publicat pe internet; îl am momentan doar eu pe calculator."</div>
+
+          <div class="say"><b>Ryan:</b> "Dacă ați avea timp, aș putea să vi-l arăt cândva zilele astea."</div>
+
+          <h3 class="h-orange">Dacă spun „Nu avem nevoie de site” / „N-am avut nevoie până acum”:</h3>
+          <div class="say"><b>Ryan:</b> "Da, înțeleg. Și până acum v-ați descurcat fără unul, deci are sens. De fapt, tocmai de asta v-am sunat. Eu v-am făcut deja o variantă, doar ca să vedeți concret cum ar putea arăta pentru firma dumneavoastră. Dacă ați avea timp, aș putea să vi-l arăt cândva zilele astea."</div>
+          <div class="predict">Dacă refuză din nou → <b>„Am înțeles, nicio problemă. O zi bună!”</b></div>
+
+          <h3 class="h-orange">Dacă ați mai sunat în trecut:</h3>
+          <div class="say"><b>Ryan:</b> "Bună ziua, sunt Ryan. Am încercat să vă sun și zilele trecute, dar probabil v-am prins într-un moment prost."</div>
+          <div class="say"><b>Ryan:</b> "Vă sunam în legătură cu firma. Mă uitasem la firma dumneavoastră pe Google și voiam să vă întreb ceva legat de site."</div>
+        </div>
+
+        <div class="alt-side" id="roQuickPanel" style="top:-20px">
+          <div style="font-size:12px;color:#F59E0B;font-weight:700;margin-bottom:8px;text-align:center">RO — RĂSPUNSURI RAPIDE</div>
+
+          <div class="say"><b>„Cum adică mi-ați făcut deja un site?”</b><br><br>
+          <b>Ryan:</b> "Adică este făcut deja, da. Am luat ce am găsit public despre firmă și am pus cap la cap o variantă completă pentru firma dumneavoastră. Dacă ați avea timp, aș putea să vi-l arăt cândva zilele astea."</div>
+
+          <div class="say"><b>„Și ce are pe el?”</b><br><br>
+          <b>Ryan:</b> "Cam tot ce ar vrea să vadă cineva înainte să vă sune — ce servicii aveți, poze, recenzii, zona în care lucrați și o metodă prin care să vă contacteze."</div>
+
+          <div class="say"><b>„De ce l-ați făcut?”</b><br><br>
+          <b>Ryan:</b> "Mi-am făcut propria agenție de site-uri pentru firme locale și vrem să facem treaba la un nivel mai bun decât ce oferă majoritatea firmelor de profil din România. Am găsit firma dumneavoastră pe Google, am văzut că aveți recenzii bune și deja o reputație bună, dar nu aveți un site. Mi s-a părut că v-ar ajuta să aveți unul, mai ales în 2026, așa că v-am făcut o variantă."</div>
+
+          <div class="say"><b>„Cât costă?”</b><br><br>
+          <b>Ryan:</b> "Ca să îl vedeți, e gratis. Dacă după vă place și vreți să-l folosiți, e <b>200 de lei pe lună</b>. Acolo intră site-ul, găzduirea, mentenanța și modificările pe care vreți să le facem oricând."</div>
+
+          <div class="say"><b>„Trimiteți-mi-l pe WhatsApp.”</b><br><br>
+          <b>Ryan:</b> "Uitați care e chestia, site-ul la momentul actual nu este găzduit, practic nu este pe internet; îl am doar eu pe calculator. Cel mai bun mod este să vă trimit pe WhatsApp un link de Google Meet, stabilim o zi și o oră, iar acolo vă arăt tot site-ul — ce conține, cum este organizat și cum poate un client să vă contacteze direct. Ar dura maximum 10 minute."</div>
+        </div>
+      </div>
+    ` : step2.dataset.roOrigStep2;
   }
 
+  // Cheat card: only Romanian set in RO.
   var ccD=document.getElementById('ccDefault'),
       ccN=document.getElementById('ccNM'),
       ccR=document.getElementById('ccRO');
-  if(ccR){
-    ccR.style.display = on ? '' : 'none';
-    if(on){
-      if(ccD) ccD.style.display='none';
-      if(ccN) ccN.style.display='none';
-    }else{
-      if(activeScriptVersion!=='nm' && ccD) ccD.style.display='';
+  if(ccD) ccD.style.display = on ? 'none' : (activeScriptVersion==='nm' ? 'none' : '');
+  if(ccN) ccN.style.display = on ? 'none' : (activeScriptVersion==='nm' ? '' : 'none');
+  if(ccR) ccR.style.display = on ? '' : 'none';
+
+  // Hide every legacy US-script section after the main Step 2 card while RO is active.
+  // This preserves the site's surrounding tools/UI but guarantees no AI-receptionist script leaks into RO.
+  if(s2 && step2){
+    var n=step2.nextElementSibling;
+    while(n && n.tagName!=='SCRIPT'){
+      if(on){
+        if(n.dataset.roDisplay===undefined) n.dataset.roDisplay=n.style.display || '';
+        n.style.display='none';
+      }else if(n.dataset.roDisplay!==undefined){
+        n.style.display=n.dataset.roDisplay;
+        delete n.dataset.roDisplay;
+      }
+      n=n.nextElementSibling;
     }
   }
-
-  // Main reveal block: observation -> question -> listen -> reveal.
-  var okHead=document.getElementById('oh-ok-heading');
-  var okBody=document.getElementById('oh-ok-perfect');
-  if(okHead && okBody){
-    if(!okHead.dataset.roOrig){
-      okHead.dataset.roOrig=okHead.innerHTML;
-      okBody.dataset.roOrig=okBody.innerHTML;
-    }
-    if(on){
-      okHead.innerHTML='După ce răspunde — nu-l întrerupe:';
-      okBody.innerHTML=`<b>Ryan:</b> "Da, am înțeles."<br><br>
-      <span style="color:var(--a);font-size:14px;font-weight:700">SCURTĂ PAUZĂ</span><br><br>
-      <b>Ryan:</b> "V-am întrebat pentru că eu chiar v-am făcut deja unul."<br><br>
-      <span style="color:var(--c);font-size:14px;font-weight:700">TACI. Lasă-l să reacționeze.</span><br><br>
-      <b>Ryan:</b> "M-am uitat la ce aveți online și am făcut o variantă pentru firma voastră, cu serviciile, recenziile, pozele și toate cele. Nu e publicat sau ceva, doar l-am făcut ca să vedeți cum ar putea arăta."<br><br>
-      <b>Ryan:</b> "Dacă ați avea puțin timp zilele astea, aș putea să vi-l arăt."`;
-    }
-  }
-
-  // Past-call intro in RO.
-  var intro=document.getElementById('jm-intro-line');
-  if(intro && on){
-    intro.innerHTML=`<b>Ryan:</b> "Bună ziua, sunt Ryan. Am încercat să vă sun și zilele trecute, dar probabil v-am prins într-un moment prost."<br><br>
-    <b>Ryan:</b> "Vă sunam în legătură cu firma — mă uitasem la voi pe Google și voiam să vă întreb ceva legat de site."`;
-  }
-
-  // Do not hide any page sections in RO.
-  document.querySelectorAll('.jm-only').forEach(function(el){el.classList.remove('ks-hide');});
 }
-
 // Wrap setScriptVersion so RO-specific elements are restored correctly when switching modes.
 (function(){
   var baseSet = setScriptVersion;
   setScriptVersion = function(version){
-    // Restore RO-owned elements before another version applies its own text.
-    if(activeScriptVersion==='ro' && version!=='ro'){
-      var owner=document.getElementById('owner-opener');
-      if(owner && owner.dataset.orig) owner.innerHTML=owner.dataset.orig;
-      var quick=document.getElementById('roQuickPanel');
-      if(quick && quick.dataset.orig) quick.innerHTML=quick.dataset.orig;
-      var ccR=document.getElementById('ccRO');
-      if(ccR) ccR.style.display='none';
-      var okHead=document.getElementById('oh-ok-heading');
-      var okBody=document.getElementById('oh-ok-perfect');
-      if(okHead && okHead.dataset.roOrig){okHead.innerHTML=okHead.dataset.roOrig;okBody.innerHTML=okBody.dataset.roOrig;}
+    var wasRO = activeScriptVersion==='ro';
+    if(wasRO && version!=='ro'){
+      activeScriptVersion='__restore__';
+      applyROMode();
+      activeScriptVersion='ro';
     }
     baseSet(version);
     applyROMode();
