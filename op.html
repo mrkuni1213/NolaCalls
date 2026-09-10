@@ -522,7 +522,7 @@ window.nolaPasswordPassed=false;
 
 <!-- STEP 1 -->
 <h2 id="s1" style="color:#A6E3A1;border-left-color:#A6E3A1;background:rgba(166,227,161,.08)">Step 1 — Verify the Owner <span class="stat-lime">[OPENER]</span></h2>
-<div class="card">
+<div class="card" id="step1-card">
 <div class="card-label">Opening line</div>
 <div class="say" id="owner-opener"><b>Ryan:</b> "Hi, is this the owner of <span class="placeholder biz-name">[Business Name]</span>?"</div>
 
@@ -2060,12 +2060,50 @@ function toggleNWVersion(){
 function applyROMode(){
   var on = activeScriptVersion === 'ro';
 
-  var owner = document.getElementById('owner-opener');
-  if(owner){
-    if(!owner.dataset.orig) owner.dataset.orig = owner.innerHTML;
-    owner.innerHTML = on
-      ? `<b>Ryan:</b> "Alo, bună ziua! <span class="placeholder biz-name">[Numele firmei]</span>?"<br><br><b>Ryan:</b> "Vorbesc cu proprietarul?"`
-      : owner.dataset.orig;
+  var step1 = document.getElementById('step1-card');
+  if(step1){
+    if(!step1.dataset.orig) step1.dataset.orig = step1.innerHTML;
+    step1.innerHTML = on ? `
+      <div class="card-label">Deschiderea apelului</div>
+      <div class="say"><b>Ryan:</b> "Alo, bună ziua! <span class="placeholder biz-name">[Numele firmei]</span>?"<br><br>
+      <b>Ryan:</b> "Vorbesc cu proprietarul?"</div>
+
+      <button class="expand-btn btn-green" onclick="toggleExpand(this)">Dacă DA → Mergi la Pasul 2</button>
+      <div class="expand-body">
+        <div class="predict" style="font-size:15px;font-weight:600;padding:10px 0 10px 24px">
+          <span class="pos">Dacă DA →</span> <a href="#s2" class="go">Mergi la Pasul 2</a>
+        </div>
+        <div class="predict" style="font-size:15px;font-weight:600;padding:4px 0 10px 24px">
+          <a style="color:#F59E0B;cursor:pointer" onclick="jumpTo('whos-calling')">Dacă întreabă „Cine sunteți?” / „Despre ce este vorba?” →</a>
+        </div>
+      </div>
+
+      <button class="expand-btn btn-red" onclick="toggleExpand(this)">Dacă NU</button>
+      <div class="expand-body">
+        <div class="say"><b>Ryan:</b> "Am înțeles. Cu cine vorbesc?"</div>
+
+        <button class="expand-btn btn-red" onclick="toggleExpand(this)">Recepție / Angajat</button>
+        <div class="expand-body">
+          <div class="say"><b>Ryan:</b> "Am făcut o variantă de site pentru firmă și voiam să vorbesc puțin cu proprietarul despre ea. Știți cumva când îl pot găsi?"</div>
+          <div class="predict">Dacă întreabă mai multe →</div>
+          <div class="say"><b>Ryan:</b> "Am făcut o variantă nouă de site pentru firmă și voiam doar să i-o prezint proprietarului."</div>
+          <div class="predict">Dacă vă spune când îl găsiți → Notați și sunați atunci.</div>
+        </div>
+
+        <button class="expand-btn btn-red" onclick="toggleExpand(this)">Soție / Membru al familiei</button>
+        <div class="expand-body">
+          <div class="say"><b>Ryan:</b> "Am înțeles. Eu voiam să vorbesc puțin cu proprietarul despre o variantă de site pe care am făcut-o pentru firmă. Știți cumva când îl pot găsi?"</div>
+          <div class="predict">Dacă vă spune când îl găsiți → Notați și sunați atunci.</div>
+        </div>
+      </div>
+
+      <button class="expand-btn btn-orange" id="whos-calling" onclick="toggleExpand(this)">Dacă întreabă „Cine sunteți?” / „Despre ce este vorba?”</button>
+      <div class="expand-body">
+        <div class="say"><b>Ryan:</b> "Sunt Ryan. Am făcut o variantă de site pentru firmă și voiam să vorbesc puțin cu proprietarul despre ea. Este disponibil?"</div>
+        <div class="predict">Dacă NU →</div>
+        <div class="say"><b>Ryan:</b> "Am înțeles. Știți cumva când îl pot găsi?"</div>
+      </div>
+    ` : step1.dataset.orig;
   }
 
   var quick = document.getElementById('roQuickPanel');
