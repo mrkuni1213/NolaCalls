@@ -339,21 +339,6 @@ a:hover{text-decoration:underline}
 .collapsible-card.open .collapsible-arrow{transform:rotate(90deg)}
 .collapsible-content{display:none;padding:16px}
 .collapsible-card.open .collapsible-content{display:block}
-
-/* ===== ROMANIA SCRIPT MODE ===== */
-#roScriptPanel{display:none}
-body.ro-mode #roScriptPanel{display:block}
-body.ro-mode #s1,body.ro-mode #s1~*{display:none!important}
-body.ro-mode .timebar{display:none!important}
-body.ro-mode .side{display:none!important}
-body.ro-mode .leads-btn,body.ro-mode .work-btn-fixed,body.ro-mode .log-btn{display:none!important}
-body.ro-mode .cc-btn,body.ro-mode .cc-panel{display:none!important}
-.ro-section{margin:28px 0}
-.ro-kicker{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--c);font-weight:800;margin-bottom:8px}
-.ro-choice{background:var(--sf);border:1px solid var(--ln);border-radius:14px;padding:18px 18px;margin:12px 0}
-.ro-choice h3{margin:0 0 10px;color:var(--a)}
-.ro-pause{font-size:14px;color:#39FF14;font-weight:700;padding:8px 0 8px 24px;border-left:3px solid #39FF14;margin:0}
-.ro-note{font-size:14px;color:var(--txm);margin-top:8px}
 </style>
 <script src="https://unpkg.com/compromise"></script>
 <script>var LEADS=[];</script>
@@ -508,6 +493,17 @@ window.nolaPasswordPassed=false;
 <div class="cc-row"><div class="cc-k">"Not big enough" / "no office"</div><div class="cc-v">"It's ninety-nine bucks, not a salary. It's built for one-truck guys."</div></div>
 <div class="cc-row"><div class="cc-k">Any goodbye, yes or no</div><div class="cc-v">"Save this number: <span class="cc-num">209-414-5201</span>. Call it when you're driving. Thirty seconds, you'll hear it."</div></div>
 </div>
+
+<div id="ccRO" style="display:none">
+<div style="font-size:11px;color:var(--txd);margin-bottom:6px">RO — răspunsuri rapide în timpul apelului.</div>
+<div class="cc-row"><div class="cc-k">„Nu ne trebuie site”</div><div class="cc-v">„Da, am înțeles. Nicio problemă. Doar că, fiind deja făcut pentru firma voastră, dacă ați avea puțin timp zilele astea aș putea să vi-l arăt și vedeți voi ce părere aveți.”<br><br><span style="color:var(--txd)">Dacă refuză din nou: „Am înțeles, nicio problemă. O zi bună!”</span></div></div>
+<div class="cc-row"><div class="cc-k">„Avem Facebook / Instagram”</div><div class="cc-v">„Da, am văzut. Și nu ar fi în loc de Facebook sau Instagram. E mai mult pentru cineva care vă caută pe Google și vrea să vadă într-un singur loc serviciile, lucrările, recenziile și cum poate să vă contacteze.”</div></div>
+<div class="cc-row"><div class="cc-k">„Nu am timp”</div><div class="cc-v">„Da, sigur, înțeleg. Mă refeream oricum la când aveți dumneavoastră puțin timp liber zilele astea.”</div></div>
+<div class="cc-row"><div class="cc-k">„Cât costă?”</div><div class="cc-v">„Să-l vedeți, nimic. Dacă după vă place și vreți să-l folosiți, e <b>[399/499] de lei pe lună</b>. Acolo intră site-ul, găzduirea, mentenanța și modificările pe care mai vreți să le facem.”</div></div>
+<div class="cc-row"><div class="cc-k">„Trimite-mi-l”</div><div class="cc-v">„Da, sigur. Doar că prima dată aș prefera să vi-l arăt eu, fiindcă sunt câteva lucruri pe care e mai simplu să vi le explic direct. Durează cam 10 minute și vă trimit eu un link pe WhatsApp pe care doar apăsați.”</div></div>
+<div class="cc-row"><div class="cc-k">„Trimite pe email”</div><div class="cc-v">„Sigur. Doar că fiind un site făcut special pentru firma voastră, sunt câteva lucruri pe care aș prefera să vi le explic prima dată, ca să aibă puțin context când îl vedeți.”</div></div>
+</div>
+
 <div id="ccNM" style="display:none">
 <div style="font-size:11px;color:var(--txd);margin-bottom:6px">NM version. Click any answer to edit it, it saves on this browser.</div>
 <div class="cc-row"><div class="cc-k">"We don't need a website."</div><div class="cc-v" contenteditable="true" data-cc="nm0">"Yeah, that's totally fair, you've done fine without one. The only reason I built it is that when someone Googles you, the guy next door with a site shows up first."</div></div>
@@ -524,114 +520,11 @@ window.nolaPasswordPassed=false;
 <!-- TITLE -->
 <div class="subtitle">Cold Call Script &<br>Operations Manual</div>
 
-
-<!-- ROMANIA FULL SCRIPT -->
-<div id="roScriptPanel">
-  <button class="jm-toggle active" type="button" onclick="toggleJMVersion()" style="float:none;margin:12px 0 0">← Înapoi</button>
-  <div class="subtitle" style="margin-top:8px">Cold Call România</div>
-  <div class="intro"><p><strong>Scopul apelului:</strong> nu vinzi site-ul la telefon. Creezi curiozitate, îl lași să proceseze situația, apoi stabilești o prezentare scurtă pe Google Meet.</p></div>
-
-  <div class="ro-section">
-    <div class="ro-kicker">1 — Deschidere</div>
-    <div class="card">
-      <div class="card-label">Opening line</div>
-      <div class="say"><b>Ryan:</b> „Alo, bună ziua! <span class="placeholder biz-name">[Numele firmei]</span>?”</div>
-      <div class="say"><b>Ryan:</b> „Vorbesc cu proprietarul?”</div>
-      <p class="ro-note">Dacă da, continui. Dacă nu, mergi la Gatekeeper de mai jos.</p>
-    </div>
-  </div>
-
-  <div class="ro-section">
-    <div class="ro-kicker">2 — Observația + întrebarea</div>
-    <div class="card">
-      <div class="card-label">Nu prezenta încă soluția</div>
-      <div class="say"><b>Ryan:</b> „Perfect. Uite, mă uitam mai devreme la voi pe Google, că voiam să văd serviciile și prețurile, și am observat că nu aveți un site.”</div>
-      <div class="say"><b>Ryan:</b> „Mă întrebam dacă v-ați gândit vreodată să vă faceți unul?”</div>
-      <p class="ro-pause">PAUZĂ. Lasă-l să răspundă și să-și explice singur situația.</p>
-    </div>
-  </div>
-
-  <div class="ro-section">
-    <div class="ro-kicker">3 — După răspunsul lui</div>
-    <div class="card">
-      <div class="card-label">Reveal</div>
-      <div class="say"><b>Ryan:</b> „Da, am înțeles.”</div>
-      <div class="say"><b>Ryan:</b> „V-am întrebat pentru că eu chiar v-am făcut deja unul.”</div>
-      <p class="ro-pause">PAUZĂ. Nu explica imediat. Lasă-l să întrebe.</p>
-      <div class="say"><b>Ryan:</b> „M-am uitat la ce aveți despre firmă online și am făcut o variantă pentru voi. Dacă ați avea puțin timp zilele astea, aș putea să vi-l arăt.”</div>
-    </div>
-  </div>
-
-  <div class="ro-section">
-    <div class="ro-kicker">4 — Răspunsuri naturale</div>
-
-    <div class="ro-choice"><h3>„Cum adică mi-ai făcut deja un site?”</h3><div class="say"><b>Ryan:</b> „Adică e făcut deja, da. Am luat informațiile publice despre firmă și am pus cap la cap o variantă completă pentru voi. Nu e publicat sau ceva, doar am vrut să vă pot arăta concret cum ar putea să arate.”</div></div>
-
-    <div class="ro-choice"><h3>„Ce ar avea pe el?”</h3><div class="say"><b>Ryan:</b> „Cam tot ce ar vrea să vadă cineva înainte să vă contacteze — serviciile, poze cu lucrările, recenziile, zona în care lucrați, datele de contact și o metodă simplă prin care să vă sune sau să ceară o ofertă.”</div></div>
-
-    <div class="ro-choice"><h3>„De ce l-ai făcut?”</h3><div class="say"><b>Ryan:</b> „Pentru că asta încerc să pornesc acum. Aleg câteva firme care mi se par bune și care nu au site, le fac întâi o variantă și după îi contactez. Mi se pare mai normal să aveți ceva concret de văzut decât să vă sun doar să vă spun că fac site-uri.”</div></div>
-
-    <div class="ro-choice"><h3>„Nu avem nevoie de site / n-am avut nevoie până acum.”</h3><div class="say"><b>Ryan:</b> „Da, înțeleg. Și clar v-ați descurcat și fără până acum. V-am întrebat tocmai pentru că eu deja am făcut o variantă pentru voi.”</div><p class="ro-note">Nu te certa cu obiecția. Nu repeta invitația dacă ai făcut-o deja.</p></div>
-
-    <div class="ro-choice"><h3>„Avem Facebook / Instagram.”</h3><div class="say"><b>Ryan:</b> „Da, am văzut. Și site-ul nu ar fi în loc de Facebook sau Instagram. E mai mult pentru omul care vă caută pe Google și vrea să vadă într-un singur loc ce faceți, lucrările, recenziile și cum vă poate contacta.”</div></div>
-
-    <div class="ro-choice"><h3>„Am avut un site.”</h3><div class="say"><b>Ryan:</b> „A, am înțeles. Și ce s-a întâmplat cu el?”</div><p class="ro-pause">ASCULTĂ. După ce explică: „Am înțeles. V-am întrebat pentru că eu chiar v-am făcut o variantă nouă.”</p></div>
-
-    <div class="ro-choice"><h3>„Cât costă?”</h3><div class="say"><b>Ryan:</b> „Să-l vedeți, nimic. Dacă după vă place și vreți să-l folosiți, este <span class="stat">[399 / 499 lei pe lună]</span>. Acolo intră site-ul, găzduirea, mentenanța și modificările de bază pe care mai vreți să le facem.”</div></div>
-
-    <div class="ro-choice"><h3>„Trimite-mi site-ul pe WhatsApp.”</h3><div class="say"><b>Ryan:</b> „Sigur. Doar că prima dată aș prefera să vi-l arăt eu, fiindcă sunt câteva lucruri pe care e mai simplu să vi le explic direct. Durează cam 10 minute și vă trimit eu un link pe WhatsApp pe care doar apăsați.”</div></div>
-
-    <div class="ro-choice"><h3>„Trimite-mi pe email.”</h3><div class="say"><b>Ryan:</b> „Sigur. Doar că fiind făcut special pentru firma voastră, sunt câteva lucruri pe care aș prefera să vi le explic prima dată, ca să aibă context când îl vedeți.”</div></div>
-
-    <div class="ro-choice"><h3>„Nu mă interesează.”</h3><div class="say"><b>Ryan:</b> „Da, am înțeles. Nicio problemă. Doar că, fiind deja făcut pentru firma voastră, dacă ați avea puțin timp zilele astea aș putea să vi-l arăt și vedeți voi ce părere aveți.”</div><p class="ro-note">Dacă refuză din nou: „Am înțeles, nicio problemă. O zi bună!” Nu împinge a treia oară.</p></div>
-
-    <div class="ro-choice"><h3>„Nu am timp acum.”</h3><div class="say"><b>Ryan:</b> „Da, sigur, înțeleg. Mă refeream oricum la când aveți dumneavoastră puțin timp liber zilele astea.”</div></div>
-  </div>
-
-  <div class="ro-section">
-    <div class="ro-kicker">5 — Gatekeeper</div>
-    <div class="card">
-      <div class="say"><b>Ryan:</b> „Bună ziua! Vorbesc cu proprietarul?”</div>
-      <div class="predict">Dacă întreabă „Despre ce este vorba?”</div>
-      <div class="say"><b>Ryan:</b> „Am făcut o variantă de site pentru firmă și voiam să vorbesc puțin cu dumnealui despre ea. Știți cumva când îl pot găsi?”</div>
-      <div class="predict">Dacă insistă:</div>
-      <div class="say"><b>Ryan:</b> „Am făcut o variantă nouă de site pentru firmă și voiam doar să i-o prezint proprietarului.”</div>
-    </div>
-  </div>
-
-  <div class="ro-section">
-    <div class="ro-kicker">6 — Programarea prezentării</div>
-    <div class="card">
-      <div class="card-label">Google Meet</div>
-      <div class="say"><b>Ryan:</b> „Perfect. Când ați avea puțin timp? Eu pot [marți după 4] sau [miercuri pe la 11].”</div>
-      <div class="predict">După ce alege:</div>
-      <div class="say"><b>Ryan:</b> „Perfect. Ăsta este și numărul dumneavoastră de WhatsApp?”</div>
-      <div class="say"><b>Ryan:</b> „Super. Vă dau eu un mesaj acolo și înainte de ora stabilită vă trimit link-ul. Doar apăsați pe el și intrați.”</div>
-      <div class="say"><b>Ryan:</b> „Atunci rămâne [miercuri la 11]. Mulțumesc, o zi bună!”</div>
-    </div>
-  </div>
-
-  <div class="ro-section">
-    <div class="ro-kicker">Cheat sheet</div>
-    <div class="goal">
-      <h2>Ordinea de ținut minte</h2>
-      <p>1. „Bună ziua, [firma]?”</p>
-      <p>2. „Vorbesc cu proprietarul?”</p>
-      <p>3. Observația despre Google + lipsa site-ului</p>
-      <p>4. „V-ați gândit vreodată să vă faceți unul?”</p>
-      <p>5. Ascultă</p>
-      <p>6. „V-am întrebat pentru că eu chiar v-am făcut deja unul.”</p>
-      <p>7. Pauză</p>
-      <p>8. Dacă există interes: stabilești 10 minute pe Meet</p>
-    </div>
-  </div>
-</div>
-
 <!-- STEP 1 -->
 <h2 id="s1" style="color:#A6E3A1;border-left-color:#A6E3A1;background:rgba(166,227,161,.08)">Step 1 — Verify the Owner <span class="stat-lime">[OPENER]</span></h2>
 <div class="card">
 <div class="card-label">Opening line</div>
-<div class="say" id="owner-opening-line"><b>Ryan:</b> "Hi, is this the owner of <span class="placeholder biz-name">[Business Name]</span>?"</div>
+<div class="say" id="owner-opener"><b>Ryan:</b> "Hi, is this the owner of <span class="placeholder biz-name">[Business Name]</span>?"</div>
 
 <button class="expand-btn btn-green" onclick="toggleExpand(this)">If YES → Go to Step 2</button>
 <div class="expand-body">
@@ -686,7 +579,7 @@ window.nolaPasswordPassed=false;
 <hr class="div">
 
 <!-- STEP 2 -->
-<h2 id="s2" style="color:#A6E3A1;border-left-color:#A6E3A1;background:rgba(166,227,161,.08)">Step 2 — Pitch <span class="stat-lime">MAIN SCRIPT</span><button class="jm-toggle" id="nmToggle" onclick="toggleNMVersion()" type="button">NM</button><button class="jm-toggle" id="ksToggle" onclick="toggleKSVersion()" type="button">KS</button><button class="jm-toggle" id="nwToggle" onclick="toggleNWVersion()" type="button">NW</button><button class="jm-toggle" id="jmToggle" onclick="toggleJMVersion()" type="button">RO</button></h2>
+<h2 id="s2" style="color:#A6E3A1;border-left-color:#A6E3A1;background:rgba(166,227,161,.08)">Step 2 — Pitch <span class="stat-lime">MAIN SCRIPT</span><button class="jm-toggle" id="nmToggle" onclick="toggleNMVersion()" type="button">NM</button><button class="jm-toggle" id="ksToggle" onclick="toggleKSVersion()" type="button">KS</button><button class="jm-toggle" id="nwToggle" onclick="toggleNWVersion()" type="button">NW</button><button class="jm-toggle" id="roToggle" onclick="toggleROVersion()" type="button">RO</button></h2>
 
 <div class="card">
 <div id="pastCallCard" class="collapsible-card">
@@ -703,7 +596,7 @@ window.nolaPasswordPassed=false;
 <h3 class="h-green">If they say "yeah"<span style="color:var(--txd);margin:0 6px">│</span>confirm:</h3>
 <div class="say-wrap">
 <div class="say" id="jm-permission-line"><b>Ryan:</b> "I was wondering if I could grab one minute of your time?"</div>
-<div class="alt-side" style="top:-160px">
+<div class="alt-side" id="roQuickPanel" style="top:-160px">
 <div class="say" id="julie-becker-objection"><b>Who the fuck is Julie Becker?</b><br><br><b>Ryan:</b> "She's just a family friend. She mentioned you guys still do most of your business over the phone, and I figured I'd reach out."</div>
 <div class="say" id="alt-whatdoyoumean"><b>Ryan:</b> "It's about helping plumbing companies answer more customer calls without hiring another full-time receptionist."</div>
 <div class="say"><b>Ryan:</b> "How many calls would you say you answer in a normal day?"</div>
@@ -2076,28 +1969,17 @@ var activeScriptVersion='default';
 
 function setScriptVersion(version){
   activeScriptVersion=version;
-  document.body.classList.toggle('ro-mode', version==='jm');
 
-  var jmBtn=document.getElementById('jmToggle');
+  var jmBtn=document.getElementById('roToggle');
   var ksBtn=document.getElementById('ksToggle');
   var nwBtn=document.getElementById('nwToggle');
   var nmBtn=document.getElementById('nmToggle');
   var ccD=document.getElementById('ccDefault'),ccN=document.getElementById('ccNM');
-  if(ccD&&ccN){ccD.style.display=activeScriptVersion==='nm'?'none':'';ccN.style.display=activeScriptVersion==='nm'?'':'none';}
+  if(ccD&&ccN){ccD.style.display=(activeScriptVersion==='nm'||activeScriptVersion==='ro')?'none':'';ccN.style.display=activeScriptVersion==='nm'?'':'none';}
   var intro=document.getElementById('jm-intro-line');
   var permission=document.getElementById('jm-permission-line');
-  var ownerOpening=document.getElementById('owner-opening-line');
 
-  if(ownerOpening){
-    if(!ownerOpening.dataset.orig){ownerOpening.dataset.orig=ownerOpening.innerHTML;}
-    if(activeScriptVersion==='nm'){
-      ownerOpening.innerHTML = `<b>Ryan:</b> "Alo, bună ziua! <span class="placeholder biz-name">[Business Name]</span>?"<br><br><b>Ryan:</b> "Vorbesc cu proprietarul?"`;
-    }else{
-      ownerOpening.innerHTML=ownerOpening.dataset.orig;
-    }
-  }
-
-  if(jmBtn){jmBtn.classList.toggle('active',activeScriptVersion==='jm');}
+  if(jmBtn){jmBtn.classList.toggle('active',activeScriptVersion==='ro');}
   if(ksBtn){ksBtn.classList.toggle('active',activeScriptVersion==='ks');}
   if(nwBtn){nwBtn.classList.toggle('active',activeScriptVersion==='nw');}
   if(nmBtn){nmBtn.classList.toggle('active',activeScriptVersion==='nm');}
@@ -2107,14 +1989,14 @@ function setScriptVersion(version){
   }
 
   if(permission){
-    if(activeScriptVersion==='jm'){
-      permission.innerHTML = `<b>Ryan:</b> "Well... I'm not sure if you're the right person I should be talking to, but I called to see who would be responsible for making sure the company isn't losing plumbing jobs because of missed calls. Who should I be talking to about that?"`;
+    if(activeScriptVersion==='ro'){
+      permission.innerHTML = `<b>Ryan:</b> "Perfect. Uite, mă uitam mai devreme la voi pe Google, că voiam să văd serviciile și prețurile, și am observat că nu aveți un site."<br><br><b>Ryan:</b> "Mă întrebam dacă v-ați gândit vreodată să vă faceți unul?"`;
     }else if(activeScriptVersion==='ks'){
       permission.innerHTML = `<b>Ryan:</b> "Hi, is this <span class="placeholder biz-name">[Business Name]</span> in Georgia?"<br><br><b>Ryan:</b> "Hey, well, yeah, what's up man, uhm, yeah, so my friend Julie Becker, actually, my mom's friend kinda gave me your number, she said you guys still rely mostly on the phone for new customers."`;
     }else if(activeScriptVersion==='nw'){
       permission.innerHTML = `<b>Daniel:</b> "Hi, is this <span class="placeholder biz-name">[Business Name]</span>?"<br><br><b>Daniel:</b> "Yeah, what's up man, this is Daniel."<br><br><b>Daniel:</b> "Uh, you're gonna hate me, but I'm actually here to offer you something."<br><br><b>Daniel:</b> "Do you wanna hang up, or give me 30 seconds?"`;
     }else if(activeScriptVersion==='nm'){
-      permission.innerHTML = `<b>Ryan:</b> "Perfect. Uite, mă uitam mai devreme la voi pe Google, că voiam să văd serviciile și prețurile, și am observat că nu aveți un site."<br><br><b>Ryan:</b> "Mă întrebam dacă v-ați gândit vreodată să vă faceți unul?"`;
+      permission.innerHTML = `<b>Ryan:</b> "Hellooo, is this <span class="placeholder biz-name">[Business Name]</span>?"<br><br><b>Ryan:</b> "Hi <span class="placeholder owner-name">[Owner Name]</span>, yeah, so I was browsing online for your prices and services and I noticed you guys didn't have a website. I was wondering why is that?"`;
     }else{
       permission.innerHTML = `<b>Ryan:</b> "I was wondering if I could grab one minute of your time?"`;
     }
@@ -2143,7 +2025,7 @@ function setScriptVersion(version){
       okBody.innerHTML = `<b>Daniel:</b> "Alright, thanks man, so it's pretty straightforward. Right now, when somebody is calling you and you're under a sink and you cannot get to the phone, or maybe when you're sleeping, or when you're in the weekend and you'd like to have some free time — the people calling you just hit the voicemail, right?"<br><br><span class="predict">wait for <span class="pos">"yeah"</span></span><br><br><b>Daniel:</b> "Yeah, so most of the time they basically hang up and call the next plumber, so most of those jobs are lost, so I've built an AI receptionist that catches all of those leads, books them, and texts you all the info."`;
     }else if(activeScriptVersion==='nm'){
       okHead.innerHTML = `Whatever their answer is:`;
-      okBody.innerHTML = `<b>Ryan:</b> "Da, am înțeles."<br><br><b>Ryan:</b> "V-am întrebat pentru că eu chiar v-am făcut deja unul."<br><br><span class="predict"><b>PAUZĂ — lasă-l să reacționeze.</b></span><br><br><b>Ryan:</b> "M-am uitat la ce aveți despre firmă online și am făcut o variantă pentru voi. Dacă ați avea puțin timp zilele astea, aș putea să vi-l arăt."`;
+      okBody.innerHTML = `<b>Ryan:</b> "I see / I understand. Yeah, so the reason for the call today is that I've actually gone ahead and built you guys a full website already. And so if you're up for it, I could maybe show it to you guys sometimes this week whenever you're available. It's totally free to look at, and I'm not charging any expensive prices, I'm a college student and I'm just starting up, you know?"`;
     }else{
       okHead.innerHTML=okHead.dataset.orig;
       okBody.innerHTML=okBody.dataset.orig;
@@ -2151,8 +2033,8 @@ function setScriptVersion(version){
   }
 }
 
-function toggleJMVersion(){
-  setScriptVersion(activeScriptVersion==='jm' ? 'default' : 'jm');
+function toggleROVersion(){
+  setScriptVersion(activeScriptVersion==='ro' ? 'default' : 'ro');
 }
 
 function toggleKSVersion(){
@@ -2172,6 +2054,107 @@ function toggleNWVersion(){
   var on=activeScriptVersion==='nw';
   document.querySelectorAll('.jm-only').forEach(function(el){el.classList.toggle('ks-hide',on);});
 }
+
+// ===== ROMANIA MODE =====
+// RO is an inline version, exactly like NM / KS / NW. It never opens a new page/tab.
+function applyROMode(){
+  var on = activeScriptVersion === 'ro';
+
+  var owner = document.getElementById('owner-opener');
+  if(owner){
+    if(!owner.dataset.orig) owner.dataset.orig = owner.innerHTML;
+    owner.innerHTML = on
+      ? `<b>Ryan:</b> "Alo, bună ziua! <span class="placeholder biz-name">[Numele firmei]</span>?"<br><br><b>Ryan:</b> "Vorbesc cu proprietarul?"`
+      : owner.dataset.orig;
+  }
+
+  var quick = document.getElementById('roQuickPanel');
+  if(quick){
+    if(!quick.dataset.orig) quick.dataset.orig = quick.innerHTML;
+    quick.innerHTML = on ? `
+      <div style="font-size:12px;color:#F59E0B;font-weight:700;margin-bottom:8px;text-align:center">RO — QUICK HANDLERS</div>
+
+      <div class="say"><b>„Cum adică mi-ai făcut deja un site?”</b><br><br>
+      <b>Ryan:</b> "Adică e făcut deja, da. Am luat ce am găsit public despre firmă și am pus cap la cap o variantă completă. De asta v-am și sunat — mi-e mult mai simplu să vi-l arăt decât să încerc să vi-l explic la telefon."</div>
+
+      <div class="say"><b>„Și ce are pe el?”</b><br><br>
+      <b>Ryan:</b> "Cam tot ce ar vrea să vadă cineva înainte să vă sune — ce servicii aveți, poze, recenzii, zona în care lucrați, datele de contact și o metodă simplă prin care să vă contacteze."</div>
+
+      <div class="say"><b>„De ce l-ai făcut?”</b><br><br>
+      <b>Ryan:</b> "Pentru că asta încerc să pornesc acum. Aleg câteva firme care mi se par bune și care nu au site, le fac eu întâi o variantă și după îi contactez. Mi se pare mai normal să aveți ceva concret de văzut decât să vă sun pur și simplu și să vă spun că fac site-uri."</div>
+
+      <div class="say"><b>„Cât costă?”</b><br><br>
+      <b>Ryan:</b> "Să-l vedeți, nimic. Dacă după vă place și vreți să-l folosiți, e <b>[399/499] de lei pe lună</b>. Acolo intră site-ul, găzduirea, mentenanța și modificările pe care mai vreți să le facem."</div>
+
+      <div class="say"><b>„Trimite-mi-l pe WhatsApp.”</b><br><br>
+      <b>Ryan:</b> "Da, sigur. Doar că prima dată aș prefera să vi-l arăt eu, fiindcă sunt câteva lucruri pe care e mai simplu să vi le explic direct. Durează cam 10 minute și vă trimit eu un link pe WhatsApp pe care doar apăsați."</div>
+    ` : quick.dataset.orig;
+  }
+
+  var ccD=document.getElementById('ccDefault'),
+      ccN=document.getElementById('ccNM'),
+      ccR=document.getElementById('ccRO');
+  if(ccR){
+    ccR.style.display = on ? '' : 'none';
+    if(on){
+      if(ccD) ccD.style.display='none';
+      if(ccN) ccN.style.display='none';
+    }else{
+      if(activeScriptVersion!=='nm' && ccD) ccD.style.display='';
+    }
+  }
+
+  // Main reveal block: observation -> question -> listen -> reveal.
+  var okHead=document.getElementById('oh-ok-heading');
+  var okBody=document.getElementById('oh-ok-perfect');
+  if(okHead && okBody){
+    if(!okHead.dataset.roOrig){
+      okHead.dataset.roOrig=okHead.innerHTML;
+      okBody.dataset.roOrig=okBody.innerHTML;
+    }
+    if(on){
+      okHead.innerHTML='După ce răspunde — nu-l întrerupe:';
+      okBody.innerHTML=`<b>Ryan:</b> "Da, am înțeles."<br><br>
+      <span style="color:var(--a);font-size:14px;font-weight:700">SCURTĂ PAUZĂ</span><br><br>
+      <b>Ryan:</b> "V-am întrebat pentru că eu chiar v-am făcut deja unul."<br><br>
+      <span style="color:var(--c);font-size:14px;font-weight:700">TACI. Lasă-l să reacționeze.</span><br><br>
+      <b>Ryan:</b> "M-am uitat la ce aveți online și am făcut o variantă pentru firma voastră, cu serviciile, recenziile, pozele și toate cele. Nu e publicat sau ceva, doar l-am făcut ca să vedeți cum ar putea arăta."<br><br>
+      <b>Ryan:</b> "Dacă ați avea puțin timp zilele astea, aș putea să vi-l arăt."`;
+    }
+  }
+
+  // Past-call intro in RO.
+  var intro=document.getElementById('jm-intro-line');
+  if(intro && on){
+    intro.innerHTML=`<b>Ryan:</b> "Bună ziua, sunt Ryan. Am încercat să vă sun și zilele trecute, dar probabil v-am prins într-un moment prost."<br><br>
+    <b>Ryan:</b> "Vă sunam în legătură cu firma — mă uitasem la voi pe Google și voiam să vă întreb ceva legat de site."`;
+  }
+
+  // Do not hide any page sections in RO.
+  document.querySelectorAll('.jm-only').forEach(function(el){el.classList.remove('ks-hide');});
+}
+
+// Wrap setScriptVersion so RO-specific elements are restored correctly when switching modes.
+(function(){
+  var baseSet = setScriptVersion;
+  setScriptVersion = function(version){
+    // Restore RO-owned elements before another version applies its own text.
+    if(activeScriptVersion==='ro' && version!=='ro'){
+      var owner=document.getElementById('owner-opener');
+      if(owner && owner.dataset.orig) owner.innerHTML=owner.dataset.orig;
+      var quick=document.getElementById('roQuickPanel');
+      if(quick && quick.dataset.orig) quick.innerHTML=quick.dataset.orig;
+      var ccR=document.getElementById('ccRO');
+      if(ccR) ccR.style.display='none';
+      var okHead=document.getElementById('oh-ok-heading');
+      var okBody=document.getElementById('oh-ok-perfect');
+      if(okHead && okHead.dataset.roOrig){okHead.innerHTML=okHead.dataset.roOrig;okBody.innerHTML=okBody.dataset.roOrig;}
+    }
+    baseSet(version);
+    applyROMode();
+  };
+})();
+
 </script>
 <script>
 function toggleCollapse(id){document.getElementById(id).classList.toggle('open');}
