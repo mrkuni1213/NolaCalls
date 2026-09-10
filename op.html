@@ -499,8 +499,8 @@ window.nolaPasswordPassed=false;
 <div class="cc-row"><div class="cc-k">„Nu ne trebuie site”</div><div class="cc-v">„Da, am înțeles. Nicio problemă. Doar că, fiind deja făcut pentru firma voastră, dacă ați avea puțin timp zilele astea aș putea să vi-l arăt și vedeți voi ce părere aveți.”<br><br><span style="color:var(--txd)">Dacă refuză din nou: „Am înțeles, nicio problemă. O zi bună!”</span></div></div>
 <div class="cc-row"><div class="cc-k">„Avem Facebook / Instagram”</div><div class="cc-v">„Da, am văzut. Și nu ar fi în loc de Facebook sau Instagram. E mai mult pentru cineva care vă caută pe Google și vrea să vadă într-un singur loc serviciile, lucrările, recenziile și cum poate să vă contacteze.”</div></div>
 <div class="cc-row"><div class="cc-k">„Nu am timp”</div><div class="cc-v">„Da, sigur, înțeleg. Mă refeream oricum la când aveți dumneavoastră puțin timp liber zilele astea.”</div></div>
-<div class="cc-row"><div class="cc-k">„Cât costă?”</div><div class="cc-v">„Să-l vedeți, nimic. Dacă după vă place și vreți să-l folosiți, e <b>[399/499] de lei pe lună</b>. Acolo intră site-ul, găzduirea, mentenanța și modificările pe care mai vreți să le facem.”</div></div>
-<div class="cc-row"><div class="cc-k">„Trimite-mi-l”</div><div class="cc-v">„Da, sigur. Doar că prima dată aș prefera să vi-l arăt eu, fiindcă sunt câteva lucruri pe care e mai simplu să vi le explic direct. Durează cam 10 minute și vă trimit eu un link pe WhatsApp pe care doar apăsați.”</div></div>
+<div class="cc-row"><div class="cc-k">„Cât costă?”</div><div class="cc-v">„Ca să îl vedeți, e gratis. Dacă după vă place și vreți să-l folosiți, e <b>200 de lei pe lună</b>. Acolo intră site-ul, găzduirea, mentenanța și modificările pe care vreți să le facem oricând.”</div></div>
+<div class="cc-row"><div class="cc-k">„Trimite-mi-l”</div><div class="cc-v">„Da, sigur. Cel mai bun mod e să vă trimit pe WhatsApp un link de Google Meet, stabilim o zi și o oră, iar acolo vă arăt site-ul cap-coadă — cum arată pe telefon, cum sunt prezentate serviciile și cum poate un client să vă contacteze direct. Ar dura maximum 10 minute.”</div></div>
 <div class="cc-row"><div class="cc-k">„Trimite pe email”</div><div class="cc-v">„Sigur. Doar că fiind un site făcut special pentru firma voastră, sunt câteva lucruri pe care aș prefera să vi le explic prima dată, ca să aibă puțin context când îl vedeți.”</div></div>
 </div>
 
@@ -619,7 +619,7 @@ window.nolaPasswordPassed=false;
 </div>
 </div>
 <div class="say jm-only" id="good-news-first"><b>Ryan:</b> "Hi, this is Ryan Carter from NolaCalls. I was hoping you could point me in the right direction. Who would you say is the best person to speak with when it comes to making sure customer calls don't get missed when everyone's busy on jobs?"</div>
-<div class="predict">They'll say <a class="pos" style="cursor:pointer" onclick="jumpTo('good-news-first')">"sure"</a><span style="color:var(--txd);margin:0 6px">│</span><a class="pos" style="cursor:pointer" onclick="jumpTo('good-news-first')">"go ahead"</a><span style="color:var(--txd);margin:0 6px">│</span><a style="color:#F59E0B;font-weight:600;cursor:pointer" onclick="jumpTo('dodge-handler')">→ "what's this about?"</a></div>
+<div class="predict" id="ro-gatekeeper-predict">They'll say <a class="pos" style="cursor:pointer" onclick="jumpTo('good-news-first')">"sure"</a><span style="color:var(--txd);margin:0 6px">│</span><a class="pos" style="cursor:pointer" onclick="jumpTo('good-news-first')">"go ahead"</a><span style="color:var(--txd);margin:0 6px">│</span><a style="color:#F59E0B;font-weight:600;cursor:pointer" onclick="jumpTo('dodge-handler')">→ "what's this about?"</a></div>
 
 <h3 class="h-green" id="oh-ok-heading">If they say "yeah"<span style="color:var(--txd);margin:0 6px">│</span>confirm:</h3>
 <div class="say" id="oh-ok-perfect"><b>Ryan:</b> "Oh ok, perfect, well then — I think you're going to love that I'm calling. If you would give me 30 seconds, I can explain how my system works and see what you think."</div>
@@ -2068,6 +2068,21 @@ function applyROMode(){
       : owner.dataset.orig;
   }
 
+  var gf = document.getElementById('good-news-first');
+  var gp = document.getElementById('ro-gatekeeper-predict');
+  if(gf){
+    if(!gf.dataset.orig) gf.dataset.orig = gf.innerHTML;
+    gf.innerHTML = on
+      ? `<b>Ryan:</b> "Bună ziua, sunt Ryan. Încercam să dau de proprietarul firmei — vorbesc cu dumnealui?"`
+      : gf.dataset.orig;
+  }
+  if(gp){
+    if(!gp.dataset.orig) gp.dataset.orig = gp.innerHTML;
+    gp.innerHTML = on
+      ? `O să spună <span class="pos">„da”</span><span style="color:var(--txd);margin:0 6px">│</span><span class="pos">„eu sunt”</span><span style="color:var(--txd);margin:0 6px">│</span><span style="color:#F59E0B;font-weight:600">„despre ce este vorba?”</span>`
+      : gp.dataset.orig;
+  }
+
   var quick = document.getElementById('roQuickPanel');
   if(quick){
     if(!quick.dataset.orig) quick.dataset.orig = quick.innerHTML;
@@ -2075,19 +2090,19 @@ function applyROMode(){
       <div style="font-size:12px;color:#F59E0B;font-weight:700;margin-bottom:8px;text-align:center">RO — QUICK HANDLERS</div>
 
       <div class="say"><b>„Cum adică mi-ai făcut deja un site?”</b><br><br>
-      <b>Ryan:</b> "Adică e făcut deja, da. Am luat ce am găsit public despre firmă și am pus cap la cap o variantă completă. De asta v-am și sunat — mi-e mult mai simplu să vi-l arăt decât să încerc să vi-l explic la telefon."</div>
+      <b>Ryan:</b> "Adică e făcut deja, da. Am luat ce am găsit public despre firmă și am pus cap la cap o variantă completă pentru voi. Dacă ați avea timp, aș putea să vi-l arăt cândva zilele astea."</div>
 
       <div class="say"><b>„Și ce are pe el?”</b><br><br>
       <b>Ryan:</b> "Cam tot ce ar vrea să vadă cineva înainte să vă sune — ce servicii aveți, poze, recenzii, zona în care lucrați, datele de contact și o metodă simplă prin care să vă contacteze."</div>
 
       <div class="say"><b>„De ce l-ai făcut?”</b><br><br>
-      <b>Ryan:</b> "Pentru că asta încerc să pornesc acum. Aleg câteva firme care mi se par bune și care nu au site, le fac eu întâi o variantă și după îi contactez. Mi se pare mai normal să aveți ceva concret de văzut decât să vă sun pur și simplu și să vă spun că fac site-uri."</div>
+      <b>Ryan:</b> "Am construit un sistem prin care putem face și administra site-uri pentru firme locale mult mai eficient decât modelul clasic de agenție. O mare parte din partea tehnică și din administrare e automatizată, iar când găsesc o firmă pentru care cred că are sens, prefer să construiesc întâi varianta și abia după să o contactez. În cazul vostru, site-ul e deja făcut."</div>
 
       <div class="say"><b>„Cât costă?”</b><br><br>
-      <b>Ryan:</b> "Să-l vedeți, nimic. Dacă după vă place și vreți să-l folosiți, e <b>[399/499] de lei pe lună</b>. Acolo intră site-ul, găzduirea, mentenanța și modificările pe care mai vreți să le facem."</div>
+      <b>Ryan:</b> "Ca să îl vedeți, e gratis. Dacă după vă place și vreți să-l folosiți, e <b>200 de lei pe lună</b>. Acolo intră site-ul, găzduirea, mentenanța și modificările pe care vreți să le facem oricând."</div>
 
       <div class="say"><b>„Trimite-mi-l pe WhatsApp.”</b><br><br>
-      <b>Ryan:</b> "Da, sigur. Doar că prima dată aș prefera să vi-l arăt eu, fiindcă sunt câteva lucruri pe care e mai simplu să vi le explic direct. Durează cam 10 minute și vă trimit eu un link pe WhatsApp pe care doar apăsați."</div>
+      <b>Ryan:</b> "Da, sigur. Cel mai bun mod e să vă trimit pe WhatsApp un link de Google Meet, stabilim o zi și o oră, iar acolo vă arăt site-ul cap-coadă — cum arată pe telefon, cum sunt prezentate serviciile și cum poate un client să vă contacteze direct. Ar dura maximum 10 minute."</div>
     ` : quick.dataset.orig;
   }
 
@@ -2142,6 +2157,10 @@ function applyROMode(){
     if(activeScriptVersion==='ro' && version!=='ro'){
       var owner=document.getElementById('owner-opener');
       if(owner && owner.dataset.orig) owner.innerHTML=owner.dataset.orig;
+      var gf=document.getElementById('good-news-first');
+      if(gf && gf.dataset.orig) gf.innerHTML=gf.dataset.orig;
+      var gp=document.getElementById('ro-gatekeeper-predict');
+      if(gp && gp.dataset.orig) gp.innerHTML=gp.dataset.orig;
       var quick=document.getElementById('roQuickPanel');
       if(quick && quick.dataset.orig) quick.innerHTML=quick.dataset.orig;
       var ccR=document.getElementById('ccRO');
